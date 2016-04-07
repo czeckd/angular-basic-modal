@@ -95,7 +95,7 @@ export class DemoAppComponent implements OnInit {
 	confirmText() {
 		if (this.useConfirm && this.modal.confirmBtn === null) {
 			this.modal.confirmBtn = 'Confirm';
-		} else {
+		} else if (!this.useConfirm) {
 			this.modal.confirmBtn = null;
 		}
 	}
