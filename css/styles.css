@@ -1,0 +1,54 @@
+body {
+	font-family:'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	color: #454545;
+}
+
+h1, h2, p {
+	margin-top:0;
+}
+
+button {
+	font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.000em;
+	font-weight: 700;
+	color: #444;
+	background-color: #eee;
+	vertical-align: middle;
+	line-height: 1.550em;
+}
+
+button:hover {
+	background-color: #ccc;
+	cursor:pointer;
+}
+
+input[type=text] {
+	width:350px;
+}
+
+label input {
+	margin:0 10px;
+}
+
+fieldset {
+	border:none;
+	padding:0;
+	margin-bottom:1em;
+}
+
+fieldset div {
+	margin-top:1em;
+}
+
+.form-label {
+	clear: left;
+	float: left;
+	width: 110px;
+	text-align:right;
+	font-weight:600;
+	padding-right:6px;
+}
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Angular 2 Record Picker Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">    
+		<base href="../">
+
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+
+	    <link rel="stylesheet" href="css/styles.css">
+    	<link rel="stylesheet" href="css/modal.css">
+
+
+		<!-- 1. Load libraries -->
+		<script src="https://npmcdn.com/typescript@1.8.9/lib/typescript.js"></script> 
+
+		<!-- IE required polyfills, in this exact order -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.24/system-polyfills.js"></script> 
+		<script src="https://npmcdn.com/angular2@2.0.0-beta.13/es6/dev/src/testing/shims_for_IE.js"></script> 
+
+
+		<script src="https://code.angularjs.org/2.0.0-beta.13/angular2-polyfills.js"></script> 
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.24/system.src.js"></script>
+		<script src="https://code.angularjs.org/2.0.0-beta.13/Rx.js"></script>
+		<script src="https://code.angularjs.org/2.0.0-beta.13/angular2.dev.js"></script>
+
+		<!-- 2. Configure SystemJS -->
+		<script>
+		System.config({
+			// Use typescript for compilation (slow!)
+			transpiler: 'typescript',
+
+			// typescript compiler options
+			typescriptOptions: {
+				emitDecoratorMetadata: true
+			},
+
+			// Map tells the System loader where to look for things
+			map: {
+				app: "../app"
+			},
+			packages: {
+				app: {
+					main: '../app/main.ts',
+					defaultExtension: 'ts'
+				}
+			}
+		});
+		System.import('app/main').then(null, console.error.bind(console));
+		</script>
+	</head>
+
+  
+	<!-- 3. Display the application -->
+	<body>
+		<demo-app>Loading...</demo-app>
+
+		<a href="https://github.com/czeckd/angular2-simple-modal/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+	</body>
+
+
+</html>
