@@ -8,6 +8,11 @@
 	<link rel="stylesheet" href="css/styles.css">
 	<link rel="stylesheet" href="css/modal.css">
 
+	<script>
+		if (window.location.href.indexOf('github.io') !== -1 && window.location.href.indexOf('demo') === -1) {
+			window.location.href = window.location.href + 'demo/';
+		}
+	</script>
 
 	<!-- 1. Load libraries -->
 	<!-- IE required polyfills, in this exact order -->
