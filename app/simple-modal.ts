@@ -7,7 +7,7 @@ export enum SimpleModalType {
 	Info,
 	Warning,
 	Critical
-}	
+}
 
 @Injectable()
 export class SimpleModal {
@@ -20,7 +20,7 @@ export class SimpleModal {
 	width:number = 250;
 	height:number = 150;
 
-	template:string = 
+	template:string =
 `<div class="modal" [ngStyle]="{'width':width, 'height':height}">
 	<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title="" />
 	<h2 class="modal-title">{{title}}</h2>
@@ -61,20 +61,21 @@ export class SimpleModal {
 		}
 
 		// Note: Do NOT use styleUrls, because they'll keep getting added to the DOM.
-		@Component({ 
+		@Component({
 			selector: 'modal',
 			template: template
-
 		})
 		class Modal {
 			cref:ComponentRef = null;
 
+			/* tslint:disable:no-unused-variable */
 			private title:string = title;
 			private message:string = message;
 			private width:string = width;
 			private height:string = height;
 			private msgHeight:string = msgHeight;
 			private icon:string = icon;
+			/* tslint:enable:no-unused-variable */
 			private confirmBtn:string = confirmBtn;
 			private cancelBtn:string = cancelBtn;
 			private result:any;
@@ -107,7 +108,7 @@ export class SimpleModal {
 		this.dcl.loadNextToLocation(this.toComponent(), elem).then( (cref) => {
 			// Assign the cref to the newly created modal so it can self-destruct correctly.
 			cref.instance.cref = cref;
-			
+
 			// Assign the promise to resolve.
 			cref.instance.result = pw;
 		});

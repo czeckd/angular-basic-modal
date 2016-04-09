@@ -1,6 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
-
-import {SimpleModal, SimpleModalType} from './simple-modal'
+import {SimpleModal, SimpleModalType} from './simple-modal';
 
 @Component({
     selector: 'demo-app',
@@ -36,7 +35,7 @@ import {SimpleModal, SimpleModalType} from './simple-modal'
 `
 })
 
-export class DemoAppComponent implements OnInit { 
+export class DemoAppComponent implements OnInit {
 
 	private modTypes:Array<string> = [];
 	private mt:SimpleModalType = SimpleModalType.Default;
@@ -62,28 +61,28 @@ export class DemoAppComponent implements OnInit {
 		switch (this.mt) {
 		case SimpleModalType.Info:
 			this.modal.title = 'Information';
-			this.modal.message = 'This is a simple informational message.'
+			this.modal.message = 'This is a simple informational message.';
 			this.modal.cancelBtn = 'Ok';
 			this.modal.confirmBtn = null;
 			this.modal.type = SimpleModalType.Info;
 			break;
 		case SimpleModalType.Warning:
 			this.modal.title = 'Warning';
-			this.modal.message = 'This is a simple warning message.'
+			this.modal.message = 'This is a simple warning message.';
 			this.modal.cancelBtn = 'Ok';
 			this.modal.confirmBtn = null;
 			this.modal.type = SimpleModalType.Warning;
 			break;
 		case SimpleModalType.Critical:
 			this.modal.title = 'Critical';
-			this.modal.message = 'This is a simple critical message.'
+			this.modal.message = 'This is a simple critical message.';
 			this.modal.cancelBtn = 'Ok';
 			this.modal.confirmBtn = null;
 			this.modal.type = SimpleModalType.Critical;
 			break;
 		default:
 			this.modal.title = 'Default title';
-			this.modal.message = 'Default message.'
+			this.modal.message = 'Default message.';
 			this.modal.cancelBtn = 'Ok';
 			this.modal.confirmBtn = null;
 			this.modal.type = SimpleModalType.Default;
