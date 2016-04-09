@@ -13,6 +13,7 @@
 		"tsc": "tsc",
 		"tsc:w": "tsc -w",
 		"lite": "lite-server",
+		"lint": "tslint -c tslint.json app/**/*.ts || true",
 		"typings": "typings",
 		"postinstall": "typings install"
 	},
@@ -28,6 +29,7 @@
 		"concurrently": "^2.0.0",
 		"lite-server": "^2.1.0",
 		"typescript": "^1.8.9",
-		"typings":"^0.7.12"
+		"typings":"^0.7.12",
+		"tslint":"^3.7.1"
 	}
 }
