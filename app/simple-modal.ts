@@ -13,8 +13,6 @@ export enum SimpleModalType {
 @Injectable()
 export class SimpleModal {
 
-	private zindex = 99;
-
 	title:string = 'Default title';
 	message:string = 'Default message';
 	type:SimpleModalType = SimpleModalType.Default;
@@ -36,12 +34,6 @@ export class SimpleModal {
 	constructor(private dcl:DynamicComponentLoader, private app:ApplicationRef) {
 	}
 
-	// Add/subtract z-index for cascading modals from same (this) provider.
-	strata(z:number) : number {
-		this.zindex += z;
-		return this.zindex;
-	}
-
 	toComponent() : Function {
 		let title:string = this.title;
 		let message:string = this.message;
@@ -50,17 +42,16 @@ export class SimpleModal {
 		let confirmBtn:string = this.confirmBtn;
 		let cancelBtn:string = this.cancelBtn;
 		let icon:string = null;
-		let provider:SimpleModal = this;
-		let bz:number = this.strata(1);    // Background z-index
-		let z:number = bz + 1;              // Modal z-index
 		let template:string;
 
 		if (this.blocking) {
-			template = `<div class="modal" [ngStyle]="{'width':'` + width + `', 'height':'` + height + `', 'z-index':` + z + '}">' +
-					this.template + `</div><div [ngStyle]="{'z-index':` + bz + '}" class="modal-background">';
+			template = `<div class="modal-background">` +
+					`<div class="modal" [ngStyle]="{'width':'` + width + `', 'height':'` + height + `'}">` +
+					this.template + `</div></div>`;
 		} else {
-			template = `<div class="modal" [ngStyle]="{'width':'` + width + `', 'height':'` + height + `', 'z-index':` + z + '}">' +
-					this.template + `</div><div [ngStyle]="{'z-index':` + bz + '}" class="modal-background" (click)="cancel()">';
+			template = `<div class="modal-background" (click)="cancel()">` +
+					`<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width':'` + width + `', 'height':'` + height + `'}">` +
+					this.template + `</div></div>`;
 		}
 
 		switch (this.type) {
@@ -90,20 +81,17 @@ export class SimpleModal {
 			private title:string = title;
 			private message:string = message;
 			private icon:string = icon;
-			private provider:SimpleModal = provider;
 			/* tslint:enable:no-unused-variable */
 			private confirmBtn:string = confirmBtn;
 			private cancelBtn:string = cancelBtn;
 			private result:any;
 
 			confirm() {
-				provider.strata(-1);
 				this.cref.dispose();
 				this.result.resolve(this.confirmBtn);
 			}
 
 			cancel() {
-				provider.strata(-1);
 				this.cref.dispose();
 
 				// By rejecting, the show must catch the error. So by resolving,
