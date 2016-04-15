@@ -1,5 +1,5 @@
 import {Component, ComponentRef, DynamicComponentLoader, ApplicationRef, ElementRef, Injectable} from 'angular2/core';
-import {NgClass, NgStyle} from 'angular2/common';
+import {NgStyle} from 'angular2/common';
 import {PromiseWrapper} from 'angular2/src/facade/async';
 
 
@@ -37,7 +37,7 @@ export class SimpleModal {
 	}
 
 	// Add/subtract z-index for cascading modals from same (this) provider.
-	private strata(z:number) : number {
+	strata(z:number) : number {
 		this.zindex += z;
 		return this.zindex;
 	}
@@ -80,7 +80,7 @@ export class SimpleModal {
 		// Note: Do NOT use styleUrls, because they'll keep getting added to the DOM.
 		@Component({
 			selector: 'modal',
-			directives: [ NgClass, NgStyle ],
+			directives: [ NgStyle ],
 			template: template
 		})
 		class Modal {
