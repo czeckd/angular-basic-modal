@@ -24,8 +24,8 @@ export class SimpleModal {
 
 	template:string =`
 		<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title="" />
-		<h2 class="modal-title">{{title}}</h2>
-		<div class="modal-message">{{message}}</div>
+		<h2 class="modal-title" [innerHTML]="title"></h2>
+		<div class="modal-message" [innerHTML]="message"></div>
 		<div class="modal-buttonbar">
 			<button *ngIf="confirmBtn" (click)="confirm()">{{confirmBtn}}</button>
 			<button *ngIf="cancelBtn" (click)="cancel()" >{{cancelBtn}}</button>
