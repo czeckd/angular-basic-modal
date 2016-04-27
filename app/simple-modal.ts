@@ -1,4 +1,4 @@
-import {Component, ComponentRef, DynamicComponentLoader, ApplicationRef, ElementRef, Injectable} from 'angular2/core';
+import {Component, ComponentRef, DynamicComponentLoader, ApplicationRef, ElementRef, Injectable, ViewContainerRef} from 'angular2/core';
 import {NgStyle} from 'angular2/common';
 import {PromiseWrapper} from 'angular2/src/facade/async';
 
@@ -24,8 +24,8 @@ export class SimpleModal {
 
 	template:string =`
 		<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title="" />
-		<h2 class="modal-title">{{title}}</h2>
-		<div class="modal-message">{{message}}</div>
+		<h2 class="modal-title" [innerHTML]="title"></h2>
+		<div class="modal-message" [innerHTML]="message"></div>
 		<div class="modal-buttonbar">
 			<button *ngIf="confirmBtn" (click)="confirm()">{{confirmBtn}}</button>
 			<button *ngIf="cancelBtn" (click)="cancel()" >{{cancelBtn}}</button>
@@ -87,12 +87,12 @@ export class SimpleModal {
 			private result:any;
 
 			confirm() {
-				this.cref.dispose();
+				this.cref.destroy();
 				this.result.resolve(this.confirmBtn);
 			}
 
 			cancel() {
-				this.cref.dispose();
+				this.cref.destroy();
 
 				// By rejecting, the show must catch the error. So by resolving,
 				// it can be ignored silently in case the result is unimportant.
@@ -104,13 +104,13 @@ export class SimpleModal {
 	}
 
 	show() : Promise<any> {
-		// Top level
-		let elem:ElementRef = this.app['_rootComponents'][0].location;
+		// Top level hack
+		let vcr:ViewContainerRef = this.app['_rootComponents'][0]['_hostElement'].vcRef;
 
 		// Set up the promise to return.
 		let pw:any = PromiseWrapper.completer();
 
-		this.dcl.loadNextToLocation(this.toComponent(), elem).then( (cref) => {
+		this.dcl.loadNextToLocation(this.toComponent(), vcr).then( (cref) => {
 			// Assign the cref to the newly created modal so it can self-destruct correctly.
 			cref.instance.cref = cref;
 
