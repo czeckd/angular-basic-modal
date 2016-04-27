@@ -9,7 +9,7 @@
 	"author": "David Czeck",
 	"license": "MIT",
 	"scripts": {
-		"start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
+		"start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
 		"tsc": "tsc",
 		"tsc:w": "tsc -w",
 		"lite": "lite-server",
@@ -18,18 +18,18 @@
 		"postinstall": "typings install"
 	},
 	"dependencies": {
-		"angular2": "2.0.0-beta.14",
-		"systemjs": "0.19.25",
+		"angular2": "2.0.0-beta.16",
+		"systemjs": "0.19.26",
 		"es6-shim": "^0.35.0",
 		"reflect-metadata": "0.1.2",
 		"rxjs": "5.0.0-beta.2",
-		"zone.js": "0.6.6"
+		"zone.js": "^0.6.12"
 	},
 	"devDependencies": {
 		"concurrently": "^2.0.0",
-		"lite-server": "^2.1.0",
-		"typescript": "^1.8.9",
-		"typings":"^0.7.12",
+		"lite-server": "^2.2.0",
+		"typescript": "^1.8.10",
+		"typings":"^0.8.1",
 		"tslint":"^3.7.1"
 	}
 }
