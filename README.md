@@ -36,7 +36,7 @@ and `demo-app.component.html`. Additionally, add the `modal.css` to your app's
 	```
     npm install
 	```
-1. Run the TypeScript compiler and start the server:
+1. Run the TypeScript transpiler and start the server:
 	```
 	npm start
 	```
