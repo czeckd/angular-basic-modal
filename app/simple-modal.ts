@@ -1,4 +1,4 @@
-import {Component, ComponentRef, DynamicComponentLoader, ApplicationRef, ElementRef, Injectable, ViewContainerRef} from 'angular2/core';
+import {Component, ComponentRef, DynamicComponentLoader, ApplicationRef, Injectable, ViewContainerRef} from 'angular2/core';
 import {NgStyle} from 'angular2/common';
 import {PromiseWrapper} from 'angular2/src/facade/async';
 
