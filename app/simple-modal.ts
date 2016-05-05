@@ -1,6 +1,6 @@
-import {Component, ComponentRef, DynamicComponentLoader, ApplicationRef, Injectable, ViewContainerRef} from 'angular2/core';
-import {NgStyle} from 'angular2/common';
-import {PromiseWrapper} from 'angular2/src/facade/async';
+import { Component, ComponentRef, DynamicComponentLoader, ApplicationRef, Injectable, ViewContainerRef } from '@angular/core';
+import { NgStyle } from '@angular/common';
+import { PromiseWrapper } from '@angular/common/src/facade/async';
 
 
 export enum SimpleModalType {
@@ -22,7 +22,7 @@ export class SimpleModal {
 	width:number = 250;
 	height:number = 150;
 
-	template:string =`
+	template:string = `
 		<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title="" />
 		<h2 class="modal-title" [innerHTML]="title"></h2>
 		<div class="modal-message" [innerHTML]="message"></div>
@@ -75,7 +75,7 @@ export class SimpleModal {
 			template: template
 		})
 		class Modal {
-			cref:ComponentRef = null;
+			cref:ComponentRef<Modal> = null;
 
 			/* tslint:disable:no-unused-variable */
 			private title:string = title;

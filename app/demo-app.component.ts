@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit} from '@angular/core';
 import {SimpleModal, SimpleModalType} from './simple-modal';
 
 @Component({
@@ -16,7 +16,7 @@ import {SimpleModal, SimpleModalType} from './simple-modal';
 			<label><input type="checkbox" [(ngModel)]="showResult">Show result</label>
 			<div>
 				<label class="form-label">Modal type:</label>
-				<label *ngFor="#t of modTypes;#i=index"><input type="radio" name="modt" (click)="radio(i)" [checked]="i===0">{{t}}</label>
+				<label *ngFor="let t of modTypes; let i=index"><input type="radio" name="modt" (click)="radio(i)" [checked]="i===0">{{t}}</label>
 			</div>
 		</fieldset>
 		<fieldset *ngIf="customize">
@@ -32,7 +32,7 @@ import {SimpleModal, SimpleModalType} from './simple-modal';
 	</form>
 	<p *ngIf="showResult"><label class="form-label">Last result:</label>{{result}}&nbsp;</p>
 	<div style="margin:25px 10px;">
-		<button (click)="showModal($event)">Show Modal</button><label>
+		<button #bt (click)="showModal();bt.blur()">Show Modal</button><label>
 		<input type="checkbox" [(ngModel)]="demoCascade">Cascade?</label>
 	</div>
 </div>`
@@ -86,7 +86,6 @@ export class DemoAppComponent implements OnInit {
 		}
 		this.modal.cancelBtn = 'OK';
 		this.modal.confirmBtn = null;
-		this.modal.blocking = true;
 		this.modal.width = 250;
 		this.modal.height = 150;
 		this.confirmText();
@@ -105,7 +104,6 @@ export class DemoAppComponent implements OnInit {
 			this.modal.cancelBtn = 'OK';
 		}
 	}
-
 
 	private cascade() {
 		let w:number = this.modal.width;
@@ -137,9 +135,7 @@ export class DemoAppComponent implements OnInit {
 		}
 	}
 
-	showModal(e) {
-		e.target.blur();
-
+	showModal() {
 		this.result = null;
 		this.confirmText();
 		this.cancelText();
@@ -151,5 +147,4 @@ export class DemoAppComponent implements OnInit {
 		}
 		this.cascade();
 	}
-
 }
