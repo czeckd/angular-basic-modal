@@ -118,7 +118,7 @@ export class DemoAppComponent implements OnInit {
 			if (!this.showResult) {
 				this.modal.show();
 			} else {
-				this.modal.show().then( (res:any) => this.result = res);
+				this.modal.show().then( (res:string) => this.result = res);
 			}
 
 			this.modal.width = w;
@@ -128,7 +128,7 @@ export class DemoAppComponent implements OnInit {
 			if (!this.showResult) {
 				this.modal.show();
 			} else {
-				this.modal.show().then( (res:any) => this.result = res);
+				this.modal.show().then( (res:string) => this.result = res);
 			}
 
 			this.modal.title = t;
@@ -143,7 +143,7 @@ export class DemoAppComponent implements OnInit {
 		if (!this.showResult) {
 			this.modal.show();
 		} else {
-			this.modal.show().then( (res:any) => this.result = res);
+			this.modal.show().then( (res:string) => this.result = res);
 		}
 		this.cascade();
 	}

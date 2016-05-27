@@ -1,6 +1,6 @@
 import { Component, ComponentRef, DynamicComponentLoader, ApplicationRef, Injectable, ViewContainerRef } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { PromiseWrapper } from '@angular/common/src/facade/async';
+import { PromiseCompleter, PromiseWrapper } from '@angular/common/src/facade/async';
 
 
 export enum SimpleModalType {
@@ -103,21 +103,21 @@ export class SimpleModal {
 		return Modal;
 	}
 
-	show() : Promise<any> {
+	show() : Promise<string> {
 		// Top level hack
 		let vcr:ViewContainerRef = this.app['_rootComponents'][0]['_hostElement'].vcRef;
 
 		// Set up the promise to return.
-		let pw:any = PromiseWrapper.completer();
+		let pc:PromiseCompleter<string> = PromiseWrapper.completer();
 
 		this.dcl.loadNextToLocation(this.toComponent(), vcr).then( (cref) => {
 			// Assign the cref to the newly created modal so it can self-destruct correctly.
 			cref.instance.cref = cref;
 
 			// Assign the promise to resolve.
-			cref.instance.result = pw;
+			cref.instance.result = pc;
 		});
 
-		return pw.promise;
+		return pc.promise;
 	}
 }
