@@ -84,7 +84,7 @@ export class SimpleModal {
 			/* tslint:enable:no-unused-variable */
 			private confirmBtn:string = confirmBtn;
 			private cancelBtn:string = cancelBtn;
-			private result:any;
+			private result:PromiseCompleter<string>;
 
 			confirm() {
 				this.cref.destroy();
