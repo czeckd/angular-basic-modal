@@ -1,54 +1,121 @@
 import {Component, OnInit} from '@angular/core';
+import {NgClass} from '@angular/common';
 import {SimpleModal, SimpleModalType} from './simple-modal';
 
 @Component({
     selector: 'demo-app',
+	directives: [ NgClass ],
 	providers: [ SimpleModal ],
     template: `
-<div style="margin:25px;">
+<div style="margin:25px;tab-size:2;">
 	<h2>Simple Modal Demo</h2>
-	<form>
+	<form [ngClass]="{'row' : bootstrap }">
 		<fieldset>
-			<label class="form-label">Settings:</label>
-			<label><input type="checkbox" [(ngModel)]="customize">Customize</label>
-			<label><input type="checkbox" [(ngModel)]="useConfirm">Confirm button</label>
-			<label><input type="checkbox" [(ngModel)]="modal.blocking">Blocking</label>
-			<label><input type="checkbox" [(ngModel)]="showResult">Show result</label>
+			<div [ngClass]="{'checkbox-inline': bootstrap }">
+				<label [ngClass]="{'form-label' : !bootstrap }">Settings</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="bootstrap" 
+					(click)="swapStyleSheet()">Bootstrap</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="customize">Customize</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm">Confirm button</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="modal.blocking">Blocking</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="showResult">Show result</label>
+			</div>
 			<div>
-				<label class="form-label">Modal type:</label>
-				<label *ngFor="let t of modTypes; let i=index"><input type="radio" name="modt" (click)="radio(i)" [checked]="i===0">{{t}}</label>
+				<label [ngClass]="{'form-label' : !bootstrap }">Modal type</label>
+				<label *ngFor="let t of modTypes; let i=index" [ngClass]="{'radio-inline': bootstrap }">
+					<input type="radio" name="modt" (click)="radio(i)" [checked]="i===0">{{t}}
+				</label>
 			</div>
 		</fieldset>
-		<fieldset *ngIf="customize">
-			<p><label class="form-label">Title:</label><input type="text" [(ngModel)]="modal.title"></p>
-			<p><label class="form-label">Message:</label><input type="text" [(ngModel)]="modal.message"></p>
-			<p *ngIf="useConfirm"><label class="form-label">Confirm button:</label><input type="text" [(ngModel)]="modal.confirmBtn"></p>
-			<p><label class="form-label">Cancel button:</label><input type="text" [(ngModel)]="modal.cancelBtn"></p>
-		
-			<p><label class="form-label">Height:</label><input type="number" [(ngModel)]="modal.height" min="150" max="400"></p>
-			<p><label class="form-label">Width:</label><input type="number" [(ngModel)]="modal.width" min="250" max="640"></p>
+		<fieldset *ngIf="customize" [ngClass]="{'col-md-6' : bootstrap }">
+			
+			<p [ngClass]="{'form-group' : bootstrap }">
+				<label [ngClass]="{'form-label' : !bootstrap }" >Title</label>
+				<input type="text" [(ngModel)]="modal.title" [ngClass]="{'form-control' : bootstrap}">
+			</p>
+			<p [ngClass]="{'form-group' : bootstrap }">
+				<label [ngClass]="{'form-label' : !bootstrap }">Message</label>
+				<input type="text" [(ngModel)]="modal.message" [ngClass]="{'form-control' : bootstrap}">
+			</p>
+			<p *ngIf="useConfirm" [ngClass]="{'form-group' : bootstrap }">
+				<label [ngClass]="{'form-label' : !bootstrap }">Confirm button</label>
+				<input type="text" [(ngModel)]="modal.confirmBtn" [ngClass]="{'form-control' : bootstrap}">
+			</p>
+			<p [ngClass]="{'form-group' : bootstrap }">
+				<label [ngClass]="{'form-label' : !bootstrap }">Cancel button</label>
+				<input type="text" [(ngModel)]="modal.cancelBtn" [ngClass]="{'form-control' : bootstrap}">
+			</p>
 
+			<section *ngIf="bootstrap">
+				<label>Size</label>
+				<label *ngFor="let sz of bootstrapSizes" [ngClass]="{'radio-inline': bootstrap }">
+					<input type="radio" name="bsize" (click)="bootsize(sz)">{{sz}}
+				</label>
+			</section>
+
+			<section *ngIf="!bootstrap">
+				<p [ngClass]="{'form-group' : bootstrap }">
+					<label [ngClass]="{'form-label' : !bootstrap }">Height</label>
+					<input type="number" [(ngModel)]="modal.height" min="150" max="400" [ngClass]="{'form-control' : bootstrap}">
+				</p>
+				<p [ngClass]="{'form-group' : bootstrap }">
+					<label [ngClass]="{'form-label' : !bootstrap }">Width</label>
+					<input type="number" [(ngModel)]="modal.width" min="250" max="640" [ngClass]="{'form-control' : bootstrap}">
+				</p>
+			</section>
 		</fieldset>
 	</form>
-	<p *ngIf="showResult"><label class="form-label">Last result:</label>{{result}}&nbsp;</p>
-	<div style="margin:25px 10px;">
-		<button #bt (click)="showModal();bt.blur()">Show Modal</button><label>
-		<input type="checkbox" [(ngModel)]="demoCascade">Cascade?</label>
+	<p *ngIf="showResult"><label [ngClass]="{'form-label' : !bootstrap }">Last result</label><span>&nbsp;{{result}}&nbsp;</span></p>
+	<div style="margin:25px 10px;" [ngClass]="{'row' : bootstrap }">
+		<button #bt (click)="showModal();bt.blur()" [ngClass]="{ 'btn btn-primary' : bootstrap }">Show Modal</button>
+		<label [ngClass]="{'checkbox-inline': bootstrap }" style="margin-left:10px;">
+			<input type="checkbox" [(ngModel)]="demoCascade">Cascade?
+		</label>
 	</div>
+	<label [ngClass]="{'form-label' : !bootstrap }" style="float:none;">Template</label>
+	<pre>{{modalTemplate}}</pre>
 </div>`
 })
 
 export class DemoAppComponent implements OnInit {
 
+	/* tslint:disable:no-unused-variable */
+	private customize:boolean = false;
+	private bootstrapSizes:Array<string> = [ 'small', 'default', 'large' ];
+	/* tslint:enable:no-unused-variable */
+	private bootstrap:boolean = false;
 	private modTypes:Array<string> = [];
 	private mt:SimpleModalType = SimpleModalType.Default;
 	private showResult:boolean = false;
-	private customize:boolean = false;
 	private useConfirm:boolean = false;
 	private demoCascade:boolean = false;
 	private result:string;
+	private modalTemplate:string;
+
+
+	private bootstrapTemplate:string =
+`<div class="modal" id="important-msg" tabindex="-1" role="dialog" style="display:block;" (click)="dismiss('Dismiss')">
+	<div class="modal-dialog" [ngClass]= "{'modal-sm':width<301, 'modal-lg':width>599}" (click)="$event.stopPropagation()">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" (click)="cancel('Cancel')">
+					<span>&times;</span><span class="sr-only">Close</span>
+				</button>
+				<img *ngIf="icon" class="modal-icon" style="width:24px;position:relative;top:-2px;" [src]="icon" alt="" title=""/>
+				<h4 class="modal-title" style="display:inline-block;" id="modal-title" [innerHTML]="title"></h4>
+			</div>
+			<div class="modal-body" [innerHTML]="message"></div>
+			<div class="modal-footer">
+				<button *ngIf="confirmBtn" type="button" class="btn btn-default" (click)="confirm()">{{confirmBtn}}</button>
+				<button *ngIf="cancelBtn" type="button" class="btn btn-primary" (click)="cancel()">{{cancelBtn}}</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-backdrop fade in"></div>`;
 
 	constructor(private modal:SimpleModal) {
+		this.modalTemplate = this.modal['defaultTemplate'];
 	}
 
 	ngOnInit() {
@@ -57,6 +124,24 @@ export class DemoAppComponent implements OnInit {
 				this.modTypes.push(t);
 			}
 		}
+	}
+
+	swapStyleSheet() {
+		let links:any = window.document.getElementsByTagName('link');
+		for (let i = 0; i < links.length; i += 1) {
+			if (links[i].href.substring( links[i].href.length - 3) === 'css') {
+				if (links[i].href.indexOf('bootstrap') !== -1) {
+					links[i].disabled = (this.bootstrap ? true : false);
+				} else {
+					links[i].disabled = (this.bootstrap ? false : true);
+					this.modalTemplate = null;
+				}
+			}
+		}
+		setTimeout( () => {
+			// Wait until after 'click'.
+			this.modalTemplate = (this.bootstrap ? this.bootstrapTemplate : this.modal['defaultTemplate']);
+		}, 50);
 	}
 
 	radio(index:any) {
@@ -86,9 +171,26 @@ export class DemoAppComponent implements OnInit {
 		}
 		this.modal.cancelBtn = 'OK';
 		this.modal.confirmBtn = null;
-		this.modal.width = 250;
+
+		if (!this.bootstrap) {
+			this.modal.width = 250;
+		}
 		this.modal.height = 150;
 		this.confirmText();
+	}
+
+	bootsize(size:string) {
+		switch (size) {
+		case 'small':
+			this.modal.width = 250;
+			break;
+		case 'large':
+			this.modal.width = 600;
+			break;
+		default:
+			this.modal.width = 400;
+			break;
+		}
 	}
 
 	confirmText() {
@@ -139,6 +241,12 @@ export class DemoAppComponent implements OnInit {
 		this.result = null;
 		this.confirmText();
 		this.cancelText();
+
+		if (this.bootstrap) {
+			this.modal.template = this.bootstrapTemplate;
+		} else {
+			this.modal.template = null;
+		}
 
 		if (!this.showResult) {
 			this.modal.show();

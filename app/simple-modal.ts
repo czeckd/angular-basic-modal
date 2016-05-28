@@ -21,37 +21,37 @@ export class SimpleModal {
 	cancelBtn:string = 'OK';
 	width:number = 250;
 	height:number = 150;
+	template:string = null;
 
-	template:string = `
-		<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title="" />
+	private defaultTemplate:string =
+`<div class="modal-background" (click)="dismiss()">
+	<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height':  height + 'px'}">
+		<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title=""/>
 		<h2 class="modal-title" [innerHTML]="title"></h2>
 		<div class="modal-message" [innerHTML]="message"></div>
 		<div class="modal-buttonbar">
 			<button *ngIf="confirmBtn" (click)="confirm()">{{confirmBtn}}</button>
 			<button *ngIf="cancelBtn" (click)="cancel()" >{{cancelBtn}}</button>
-		</div>`;
+		</div>
+	</div>
+</div>`;
 
 	constructor(private dcl:DynamicComponentLoader, private app:ApplicationRef) {
 	}
 
 	toComponent() : Function {
+		let blocking:boolean = this.blocking;
 		let title:string = this.title;
 		let message:string = this.message;
-		let width:string = this.width + 'px';
-		let height:string = this.height + 'px';
+		let width:number = this.width;
+		let height:number = this.height;
 		let confirmBtn:string = this.confirmBtn;
 		let cancelBtn:string = this.cancelBtn;
 		let icon:string = null;
-		let template:string;
+		let template:string = this.template;
 
-		if (this.blocking) {
-			template = `<div class="modal-background">` +
-					`<div class="modal" [ngStyle]="{'width':'` + width + `', 'height':'` + height + `'}">` +
-					this.template + `</div></div>`;
-		} else {
-			template = `<div class="modal-background" (click)="cancel()">` +
-					`<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width':'` + width + `', 'height':'` + height + `'}">` +
-					this.template + `</div></div>`;
+		if (template === null) {
+			template = this.defaultTemplate;
 		}
 
 		switch (this.type) {
@@ -77,27 +77,36 @@ export class SimpleModal {
 		class Modal {
 			cref:ComponentRef<Modal> = null;
 
+			private blocking:boolean = blocking;
 			/* tslint:disable:no-unused-variable */
 			private title:string = title;
 			private message:string = message;
 			private icon:string = icon;
+			private width:number = width;
+			private height:number = height;
 			/* tslint:enable:no-unused-variable */
 			private confirmBtn:string = confirmBtn;
 			private cancelBtn:string = cancelBtn;
 			private result:PromiseCompleter<string>;
 
-			confirm() {
-				this.cref.destroy();
-				this.result.resolve(this.confirmBtn);
+			dismiss(value:string) {
+				if (!this.blocking) {
+					this.cancel(value);
+				}
 			}
 
-			cancel() {
+			confirm(value:string) {
+				this.cref.destroy();
+				this.result.resolve(value === undefined ? this.confirmBtn : value);
+			}
+
+			cancel(value:string) {
 				this.cref.destroy();
 
 				// By rejecting, the show must catch the error. So by resolving,
 				// it can be ignored silently in case the result is unimportant.
 				// this.result.reject(this.cancelBtn);
-				this.result.resolve(this.cancelBtn);
+				this.result.resolve(value === undefined ? this.cancelBtn : value);
 			}
 		}
 		return Modal;

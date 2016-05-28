@@ -52,3 +52,16 @@ fieldset div {
 	padding-right:6px;
 }
 
+.form-label:after {
+	content: ':';
+}
+
+pre {
+	padding: 10px;
+	font-size: 13px;
+	border: 1px solid #ccc;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+	overflow: auto;
+	display: block;
+}
