@@ -13,18 +13,29 @@
     'rxjs':  { defaultExtension: 'js' }
   };
 
-  var packageNames = [
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic'
+  var ngPackageNames = [
+    'common',
+    'compiler',
+    'core',
+    'platform-browser',
+    'platform-browser-dynamic'
   ];
 
-  // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
-  packageNames.forEach(function(pkgName) {
-    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
-  });
+  // Individual files (~300 requests):
+  function packIndex(pkgName) {
+    packages['@angular/'+pkgName] = { main: 'index.js', defaultExtension: 'js' };
+  }
+
+  // Bundled (~40 requests):
+  function packUmd(pkgName) {
+    packages['@angular/'+pkgName] = { main: '/bundles/' + pkgName + '.umd.js', defaultExtension: 'js' };
+  }
+
+  // Most environments should use UMD; some (Karma) need the individual index files
+  var setPackageConfig = System.packageWithIndex ? packIndex : packUmd;
+
+  // Add package entries for angular packages
+  ngPackageNames.forEach(setPackageConfig);
 
   var config = {
     map: map,
