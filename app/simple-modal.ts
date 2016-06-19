@@ -115,7 +115,6 @@ export class SimpleModal {
 	show() : Promise<string> {
 		// Top level hack
 		let vcr:ViewContainerRef = this.app['_rootComponents'][0]['_hostElement'].vcRef;
-console.log(this.app);
 
 		// Set up the promise to return.
 		let pc:PromiseCompleter<string> = PromiseWrapper.completer();
