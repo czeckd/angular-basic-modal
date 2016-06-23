@@ -1,11 +1,14 @@
 (function(global) {
 
-  var ngVer = '@2.0.0-rc.2';
+  var ngVer = '@2.0.0-rc.3';
+  var formsVer = '@0.1.1';
 
   // map tells the System loader where to look for things
   var map = {
     'app':  'app', // 'dist',
-    'rxjs': 'https://npmcdn.com/rxjs@5.0.0-beta.6'
+    'rxjs': 'https://npmcdn.com/rxjs@5.0.0-beta.6',
+    '@angular': 'https://npmcdn.com/@angular',
+    '@angular/forms': 'https://npmcdn.com/@angular/forms' + formsVer
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
@@ -14,24 +17,25 @@
     'rxjs': { defaultExtension: 'js' }
   };
 
-  var packageNames = [
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic'
+  var ngPackageNames = [
+    'common',
+    'compiler',
+    'core',
+    'platform-browser',
+    'platform-browser-dynamic'
   ];
 
-  // add map entries for angular packages in the form '@angular/common': 'https://npmcdn.com/@angular/common@0.0.0-3?main=browser'
-  packageNames.forEach(function(pkgName) {
-	map[pkgName] = 'https://npmcdn.com/' + pkgName + ngVer;
+  ngPackageNames.forEach(function(pkgName) {
+    map['@angular/'+pkgName] = 'https://npmcdn.com/@angular/' + pkgName + ngVer;
   });
 
-  // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
-  packageNames.forEach(function(pkgName) {
-    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
+  // Add package entries for angular packages
+  ngPackageNames.forEach(function(pkgName) {
+    packages['@angular/'+pkgName] = { main: '/bundles/' + pkgName + '.umd.js', defaultExtension: 'js' };
   });
 
+  // Special case for forms
+  packages['@angular/forms'] = { main: 'index.js', defaultExtension: 'js' };
 
   var config = {
 	transpiler: 'typescript',

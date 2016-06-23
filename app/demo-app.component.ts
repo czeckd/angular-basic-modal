@@ -3,10 +3,10 @@ import {NgClass} from '@angular/common';
 import {SimpleModal, SimpleModalType} from './simple-modal';
 
 @Component({
-    selector: 'demo-app',
+	selector: 'demo-app',
 	directives: [ NgClass ],
 	providers: [ SimpleModal ],
-    template: `
+	template: `
 <div style="margin:25px;tab-size:2;">
 	<h2>Simple Modal Demo</h2>
 	<form [ngClass]="{'row' : bootstrap }">
@@ -14,11 +14,12 @@ import {SimpleModal, SimpleModalType} from './simple-modal';
 			<div [ngClass]="{'checkbox-inline': bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Settings</label>
 				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="bootstrap" 
-					(click)="swapStyleSheet()">Bootstrap</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="customize">Customize</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm">Confirm button</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="modal.blocking">Blocking</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="showResult">Show result</label>
+					name="bootstrap" (click)="swapStyleSheet()">Bootstrap</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="customize" name="customize">Customize</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm" 
+					name="useConfirm">Confirm button</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="modal.blocking" name="blocking">Blocking</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="showResult" name="showResult">Show result</label>
 			</div>
 			<div>
 				<label [ngClass]="{'form-label' : !bootstrap }">Modal type</label>
@@ -31,19 +32,19 @@ import {SimpleModal, SimpleModalType} from './simple-modal';
 			
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }" >Title</label>
-				<input type="text" [(ngModel)]="modal.title" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="modal.title" name="title" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Message</label>
-				<input type="text" [(ngModel)]="modal.message" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="modal.message" name="message" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p *ngIf="useConfirm" [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Confirm button</label>
-				<input type="text" [(ngModel)]="modal.confirmBtn" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="modal.confirmBtn" name="confirm" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Cancel button</label>
-				<input type="text" [(ngModel)]="modal.cancelBtn" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="modal.cancelBtn" name="cancel" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 
 			<section *ngIf="bootstrap">
@@ -56,11 +57,11 @@ import {SimpleModal, SimpleModalType} from './simple-modal';
 			<section *ngIf="!bootstrap">
 				<p [ngClass]="{'form-group' : bootstrap }">
 					<label [ngClass]="{'form-label' : !bootstrap }">Height</label>
-					<input type="number" [(ngModel)]="modal.height" min="150" max="400" [ngClass]="{'form-control' : bootstrap}">
+					<input type="number" [(ngModel)]="modal.height" name="height" min="150" max="400" [ngClass]="{'form-control' : bootstrap}">
 				</p>
 				<p [ngClass]="{'form-group' : bootstrap }">
 					<label [ngClass]="{'form-label' : !bootstrap }">Width</label>
-					<input type="number" [(ngModel)]="modal.width" min="250" max="640" [ngClass]="{'form-control' : bootstrap}">
+					<input type="number" [(ngModel)]="modal.width" name="width" min="250" max="640" [ngClass]="{'form-control' : bootstrap}">
 				</p>
 			</section>
 		</fieldset>
@@ -69,7 +70,7 @@ import {SimpleModal, SimpleModalType} from './simple-modal';
 	<div style="margin:25px 10px;" [ngClass]="{'row' : bootstrap }">
 		<button #bt (click)="showModal();bt.blur()" [ngClass]="{ 'btn btn-primary' : bootstrap }">Show Modal</button>
 		<label [ngClass]="{'checkbox-inline': bootstrap }" style="margin-left:10px;">
-			<input type="checkbox" [(ngModel)]="demoCascade">Cascade?
+			<input type="checkbox" [(ngModel)]="demoCascade" name="cascade">Cascade?
 		</label>
 	</div>
 	<label [ngClass]="{'form-label' : !bootstrap }" style="float:none;">Template</label>
@@ -93,8 +94,8 @@ export class DemoAppComponent implements OnInit {
 	private modalTemplate:string;
 
 
-	private bootstrapTemplate:string =
-`<div class="modal" id="important-msg" tabindex="-1" role="dialog" style="display:block;" (click)="dismiss('Dismiss')">
+	private bootstrapTemplate:string = `
+<div class="modal" id="important-msg" tabindex="-1" role="dialog" style="display:block;" (click)="dismiss('Dismiss')">
 	<div class="modal-dialog" [ngClass]= "{'modal-sm':width<301, 'modal-lg':width>599}" (click)="$event.stopPropagation()">
 		<div class="modal-content">
 			<div class="modal-header">
