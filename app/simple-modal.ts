@@ -23,7 +23,7 @@ export class SimpleModal {
 	height:number = 150;
 	template:string = null;
 
-	private defaultTemplate:string =`
+	private defaultTemplate:string = `
 <div class="modal-background" (click)="dismiss()">
 	<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height':  height + 'px'}">
 		<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title=""/>
@@ -115,7 +115,6 @@ export class SimpleModal {
 	show() : Promise<string> {
 		// Top level hack
 		let vcr:ViewContainerRef = this.app['_rootComponents'][0]['_hostElement'].vcRef;
-console.log(this.app);
 
 		// Set up the promise to return.
 		let pc:PromiseCompleter<string> = PromiseWrapper.completer();

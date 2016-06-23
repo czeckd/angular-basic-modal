@@ -17,6 +17,7 @@
     'common',
     'compiler',
     'core',
+    'forms',
     'platform-browser',
     'platform-browser-dynamic'
   ];
@@ -40,7 +41,7 @@
   var config = {
     map: map,
     packages: packages
-  }
+  };
 
   System.config(config);
 
