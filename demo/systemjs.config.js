@@ -1,7 +1,7 @@
 (function(global) {
 
-  var ngVer = '@2.0.0-rc.3';
-  var formsVer = '@0.1.1';
+  var ngVer = '@2.0.0-rc.4';
+  var formsVer = '@0.2.0';
 
   // map tells the System loader where to look for things
   var map = {
