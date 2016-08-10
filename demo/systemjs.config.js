@@ -1,7 +1,7 @@
 (function(global) {
 
-  var ngVer = '@2.0.0-rc.4';
-  var formsVer = '@0.2.0';
+  var ngVer = '@2.0.0-rc.5';
+  var formsVer = '@0.3.0';
 
   // map tells the System loader where to look for things
   var map = {
@@ -47,8 +47,8 @@
   }
 
   // filterSystemConfig - index.html's chance to modify config before it is registered.
-  if (global.filterSystemConfig) { 
-    global.filterSystemConfig(config); 
+  if (global.filterSystemConfig) {
+    global.filterSystemConfig(config);
   }
 
   System.config(config);
