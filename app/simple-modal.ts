@@ -1,6 +1,5 @@
 import { Component, ComponentRef, DynamicComponentLoader, ApplicationRef, Injectable, ViewContainerRef } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { PromiseCompleter, PromiseWrapper } from '@angular/common/src/facade/async';
 
 
 export enum SimpleModalType {
@@ -87,7 +86,7 @@ export class SimpleModal {
 			/* tslint:enable:no-unused-variable */
 			private confirmBtn:string = confirmBtn;
 			private cancelBtn:string = cancelBtn;
-			private result:PromiseCompleter<string>;
+			private resolver:Function;
 
 			dismiss(value:string) {
 				if (!this.blocking) {
@@ -97,16 +96,12 @@ export class SimpleModal {
 
 			confirm(value:string) {
 				this.cref.destroy();
-				this.result.resolve(value === undefined ? this.confirmBtn : value);
+				this.resolver(value === undefined ? this.confirmBtn : value);
 			}
 
 			cancel(value:string) {
 				this.cref.destroy();
-
-				// By rejecting, the show must catch the error. So by resolving,
-				// it can be ignored silently in case the result is unimportant.
-				// this.result.reject(this.cancelBtn);
-				this.result.resolve(value === undefined ? this.cancelBtn : value);
+				this.resolver(value === undefined ? this.cancelBtn : value);
 			}
 		}
 		return Modal;
@@ -116,17 +111,20 @@ export class SimpleModal {
 		// Top level hack
 		let vcr:ViewContainerRef = this.app['_rootComponents'][0]['_hostElement'].vcRef;
 
-		// Set up the promise to return.
-		let pc:PromiseCompleter<string> = PromiseWrapper.completer();
+		// Set up a promise to resolve when the modal is dismissed.
+		let resolve:(value?: string | PromiseLike<string>) => void;
+		let promise = new Promise<string>((res) => {
+			resolve = res;
+		});
 
 		this.dcl.loadNextToLocation(this.toComponent(), vcr).then( (cref) => {
 			// Assign the cref to the newly created modal so it can self-destruct correctly.
 			cref.instance.cref = cref;
 
-			// Assign the promise to resolve.
-			cref.instance.result = pc;
+			// Assign the resolve.
+			cref.instance.resolver = resolve;
 		});
 
-		return pc.promise;
+		return promise;
 	}
 }
