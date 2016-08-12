@@ -52,7 +52,7 @@ size according.
 presention styling is used, say Bootstrap, then simple-modal's template must
 be set. A Bootstrap template example is given in the demo.
 
-For a usage example, see ``app.module.ts` and demo-app.component.ts` and 
+For a usage example, see `app.module.ts` and `demo-app.component.ts` and 
 `demo-app.component.html`. Additionally, add the `modal.css` to your app's 
 `index.html` for an example of modal styling without Bootstrap.
 
