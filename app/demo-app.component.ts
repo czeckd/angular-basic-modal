@@ -1,11 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {NgClass} from '@angular/common';
-import {SimpleModal, SimpleModalType} from './simple-modal';
+import { Component, OnInit } from '@angular/core';
+import { SimpleModal, SimpleModalType } from './simple-modal';
 
 @Component({
 	selector: 'demo-app',
-	directives: [ NgClass ],
-	providers: [ SimpleModal ],
 	template: `
 <div style="margin:25px;tab-size:2;">
 	<h2>Simple Modal Demo</h2>
@@ -13,10 +10,10 @@ import {SimpleModal, SimpleModalType} from './simple-modal';
 		<fieldset>
 			<div [ngClass]="{'checkbox-inline': bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Settings</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="bootstrap" 
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="bootstrap"
 					name="bootstrap" (click)="swapStyleSheet()">Bootstrap</label>
 				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="customize" name="customize">Customize</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm" 
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm"
 					name="useConfirm">Confirm button</label>
 				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="modal.blocking" name="blocking">Blocking</label>
 				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="showResult" name="showResult">Show result</label>
@@ -29,7 +26,7 @@ import {SimpleModal, SimpleModalType} from './simple-modal';
 			</div>
 		</fieldset>
 		<fieldset *ngIf="customize" [ngClass]="{'col-md-6' : bootstrap }">
-			
+
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }" >Title</label>
 				<input type="text" [(ngModel)]="modal.title" name="title" [ngClass]="{'form-control' : bootstrap}">

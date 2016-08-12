@@ -70,7 +70,6 @@ export class SimpleModal {
 		// Note: Do NOT use styleUrls, because they'll keep getting added to the DOM.
 		@Component({
 			selector: 'modal',
-			directives: [ NgStyle ],
 			template: template
 		})
 		class Modal {
