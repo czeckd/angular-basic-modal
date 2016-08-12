@@ -1,6 +1,4 @@
 import { Component, ComponentRef, DynamicComponentLoader, ApplicationRef, Injectable, ViewContainerRef } from '@angular/core';
-import { NgStyle } from '@angular/common';
-
 
 export enum SimpleModalType {
 	Default,
