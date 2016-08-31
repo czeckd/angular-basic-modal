@@ -25,8 +25,8 @@ Bootstrap.
 ## Usage
 
 Copy `simple-modal.ts` into your app. Import the SimpleModal and optionally 
-the SimpleModalType into a component and include it in that component's 
-providers and constructor.
+the SimpleModalType into a component and include it in that module's 
+providers and component's constructor.
 
 The following parameters can be set on a modal: 
 - **title** - HTML or text for the modal's title
@@ -52,9 +52,9 @@ size according.
 presention styling is used, say Bootstrap, then simple-modal's template must
 be set. A Bootstrap template example is given in the demo.
 
-For a usage example, see `demo-app.component.ts` and `demo-app.component.html`. 
-Additionally, add the `modal.css` to your app's `index.html`.  See 
-`index.html` for an example.
+For a usage example, see `app.module.ts` and `demo-app.component.ts` and 
+`demo-app.component.html`. Additionally, add the `modal.css` to your app's 
+`index.html` for an example of modal styling without Bootstrap.
 
 
 ### Getting started
