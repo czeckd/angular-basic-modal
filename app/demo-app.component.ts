@@ -3,76 +3,7 @@ import { SimpleModal, SimpleModalType } from './simple-modal';
 
 @Component({
 	selector: 'demo-app',
-	template: `
-<div style="margin:25px;tab-size:2;">
-	<h2>Simple Modal Demo</h2>
-	<form [ngClass]="{'row' : bootstrap }">
-		<fieldset>
-			<div [ngClass]="{'checkbox-inline': bootstrap }">
-				<label [ngClass]="{'form-label' : !bootstrap }">Settings</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="bootstrap"
-					name="bootstrap" (click)="swapStyleSheet()">Bootstrap</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="customize" name="customize">Customize</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm"
-					name="useConfirm">Confirm button</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="modal.blocking" name="blocking">Blocking</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="showResult" name="showResult">Show result</label>
-			</div>
-			<div>
-				<label [ngClass]="{'form-label' : !bootstrap }">Modal type</label>
-				<label *ngFor="let t of modTypes; let i=index" [ngClass]="{'radio-inline': bootstrap }">
-					<input type="radio" name="modt" (click)="radio(i)" [checked]="i===0">{{t}}
-				</label>
-			</div>
-		</fieldset>
-		<fieldset *ngIf="customize" [ngClass]="{'col-md-6' : bootstrap }">
-
-			<p [ngClass]="{'form-group' : bootstrap }">
-				<label [ngClass]="{'form-label' : !bootstrap }" >Title</label>
-				<input type="text" [(ngModel)]="modal.title" name="title" [ngClass]="{'form-control' : bootstrap}">
-			</p>
-			<p [ngClass]="{'form-group' : bootstrap }">
-				<label [ngClass]="{'form-label' : !bootstrap }">Message</label>
-				<input type="text" [(ngModel)]="modal.message" name="message" [ngClass]="{'form-control' : bootstrap}">
-			</p>
-			<p *ngIf="useConfirm" [ngClass]="{'form-group' : bootstrap }">
-				<label [ngClass]="{'form-label' : !bootstrap }">Confirm button</label>
-				<input type="text" [(ngModel)]="modal.confirmBtn" name="confirm" [ngClass]="{'form-control' : bootstrap}">
-			</p>
-			<p [ngClass]="{'form-group' : bootstrap }">
-				<label [ngClass]="{'form-label' : !bootstrap }">Cancel button</label>
-				<input type="text" [(ngModel)]="modal.cancelBtn" name="cancel" [ngClass]="{'form-control' : bootstrap}">
-			</p>
-
-			<section *ngIf="bootstrap">
-				<label>Size</label>
-				<label *ngFor="let sz of bootstrapSizes" [ngClass]="{'radio-inline': bootstrap }">
-					<input type="radio" name="bsize" (click)="bootsize(sz)">{{sz}}
-				</label>
-			</section>
-
-			<section *ngIf="!bootstrap">
-				<p [ngClass]="{'form-group' : bootstrap }">
-					<label [ngClass]="{'form-label' : !bootstrap }">Height</label>
-					<input type="number" [(ngModel)]="modal.height" name="height" min="150" max="400" [ngClass]="{'form-control' : bootstrap}">
-				</p>
-				<p [ngClass]="{'form-group' : bootstrap }">
-					<label [ngClass]="{'form-label' : !bootstrap }">Width</label>
-					<input type="number" [(ngModel)]="modal.width" name="width" min="250" max="640" [ngClass]="{'form-control' : bootstrap}">
-				</p>
-			</section>
-		</fieldset>
-	</form>
-	<p *ngIf="showResult"><label [ngClass]="{'form-label' : !bootstrap }">Last result</label><span>&nbsp;{{result}}&nbsp;</span></p>
-	<div style="margin:25px 10px;" [ngClass]="{'row' : bootstrap }">
-		<button #bt (click)="showModal();bt.blur()" [ngClass]="{ 'btn btn-primary' : bootstrap }">Show Modal</button>
-		<label [ngClass]="{'checkbox-inline': bootstrap }" style="margin-left:10px;">
-			<input type="checkbox" [(ngModel)]="demoCascade" name="cascade">Cascade?
-		</label>
-	</div>
-	<label [ngClass]="{'form-label' : !bootstrap }" style="float:none;">Template</label>
-	<pre>{{modalTemplate}}</pre>
-</div>`
+	templateUrl: 'app/demo-app.component.html'
 })
 
 export class DemoAppComponent implements OnInit {
@@ -125,17 +56,20 @@ export class DemoAppComponent implements OnInit {
 	}
 
 	swapStyleSheet() {
-		let links:any = window.document.getElementsByTagName('link');
-		for (let i = 0; i < links.length; i += 1) {
-			if (links[i].href.substring( links[i].href.length - 3) === 'css') {
-				if (links[i].href.indexOf('bootstrap') !== -1) {
-					links[i].disabled = (this.bootstrap ? true : false);
-				} else {
-					links[i].disabled = (this.bootstrap ? false : true);
-					this.modalTemplate = null;
+		// Delay this slightly to get uniform behavior across different browsers.
+		setTimeout( () => {
+			let links:any = window.document.getElementsByTagName('link');
+			for (let i = 0; i < links.length; i += 1) {
+				if (links[i].href.substring( links[i].href.length - 3) === 'css') {
+					if (links[i].href.indexOf('bootstrap') !== -1) {
+						links[i].disabled = (this.bootstrap ? false : true);
+					} else {
+						links[i].disabled = (this.bootstrap ? true : false);
+						this.modalTemplate = null;
+					}
 				}
 			}
-		}
+		}, 10);
 		setTimeout( () => {
 			// Wait until after 'click'.
 			this.modalTemplate = (this.bootstrap ? this.bootstrapTemplate : this.modal['defaultTemplate']);
