@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SimpleModal, SimpleModalType } from './simple-modal';
 
+import { BaseModalConfig, SimpleModalType } from './base-modal-config';
 import { BaseModal } from './base-modal.component';
 import { BootstrapModal } from './bootstrap-modal.component';
+import { SimpleModal } from './simple-modal';
 
 
 @Component({
@@ -19,10 +20,12 @@ export class DemoAppComponent implements OnInit {
 	private bootstrap:boolean = false;
 	private modTypes:Array<string> = [];
 	private mt:SimpleModalType = SimpleModalType.Default;
-	private showResult:boolean = false;
+	private showResult:boolean = true;
 	private useConfirm:boolean = false;
 	private demoCascade:boolean = false;
 	private result:string;
+
+	private bmc:BaseModalConfig = new BaseModalConfig();
 
 	constructor(private modal:SimpleModal) {
 	}
@@ -56,104 +59,106 @@ export class DemoAppComponent implements OnInit {
 
 		switch (this.mt) {
 		case SimpleModalType.Info:
-			this.modal.title = 'Information';
-			this.modal.message = 'This is a simple informational message.';
-			this.modal.type = SimpleModalType.Info;
+			this.bmc.title = 'Information';
+			this.bmc.message = 'This is a simple informational message.';
+			this.bmc.type = SimpleModalType.Info;
 			break;
 		case SimpleModalType.Warning:
-			this.modal.title = 'Warning';
-			this.modal.message = 'This is a simple warning message.';
-			this.modal.type = SimpleModalType.Warning;
+			this.bmc.title = 'Warning';
+			this.bmc.message = 'This is a simple warning message.';
+			this.bmc.type = SimpleModalType.Warning;
 			break;
 		case SimpleModalType.Critical:
-			this.modal.title = 'Critical';
-			this.modal.message = 'This is a simple critical message.';
-			this.modal.type = SimpleModalType.Critical;
+			this.bmc.title = 'Critical';
+			this.bmc.message = 'This is a simple critical message.';
+			this.bmc.type = SimpleModalType.Critical;
 			break;
 		default:
-			this.modal.title = 'Default title';
-			this.modal.message = 'Default message.';
-			this.modal.type = SimpleModalType.Default;
+			this.bmc.title = 'Default title';
+			this.bmc.message = 'Default message.';
+			this.bmc.type = SimpleModalType.Default;
 			break;
 		}
-		this.modal.cancelBtn = 'OK';
-		this.modal.confirmBtn = null;
+		this.bmc.cancelBtn = 'OK';
+		this.bmc.confirmBtn = null;
 
 		if (!this.bootstrap) {
-			this.modal.width = 250;
+			this.bmc.width = 250;
 		}
-		this.modal.height = 150;
+		this.bmc.height = 150;
 		this.confirmText();
 	}
 
 	bootsize(size:string) {
 		switch (size) {
 		case 'small':
-			this.modal.width = 250;
+			this.bmc.width = 250;
 			break;
 		case 'large':
-			this.modal.width = 600;
+			this.bmc.width = 600;
 			break;
 		default:
-			this.modal.width = 400;
+			this.bmc.width = 400;
 			break;
 		}
 	}
 
 	confirmText() {
-		if (this.useConfirm && this.modal.confirmBtn === null) {
-			this.modal.confirmBtn = 'Confirm';
+		if (this.useConfirm && this.bmc.confirmBtn === null) {
+			this.bmc.confirmBtn = 'Confirm';
 		} else if (!this.useConfirm) {
-			this.modal.confirmBtn = null;
+			this.bmc.confirmBtn = null;
 		}
 	}
 
 	cancelText() {
-		if (this.modal.blocking && this.modal.cancelBtn.length === 0) {
-			this.modal.cancelBtn = 'OK';
+		if (this.bmc.blocking && this.bmc.cancelBtn.length === 0) {
+			this.bmc.cancelBtn = 'OK';
 		}
 	}
 
 	private cascade() {
-		let w:number = this.modal.width;
-		let h:number = this.modal.height;
-		let t:string = this.modal.title;
+
+		let w:number = this.bmc.width;
+		let h:number = this.bmc.height;
+		let t:string = this.bmc.title;
 
 		if (this.demoCascade) {
-			this.modal.width = w + 150;
-			this.modal.height = h + 150;
-			this.modal.title = 'Cascade 1 ' + t;
+			this.bmc.width = w + 150;
+			this.bmc.height = h + 150;
+			this.bmc.title = 'Cascade 1 ' + t;
 
 
 			if (!this.showResult) {
-				this.modal.show(this.bootstrap ? BootstrapModal : BaseModal);
+				this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal));
 			} else {
-				this.modal.show(this.bootstrap ? BootstrapModal : BaseModal).then( (res:string) => this.result = res);
+				this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal)).then( (res:string) => this.result = res);
 			}
 
-			this.modal.width = w;
-			this.modal.height = h;
-			this.modal.title = 'Cascade 2 ' + t;
+			this.bmc.width = w;
+			this.bmc.height = h;
+			this.bmc.title = 'Cascade 2 ' + t;
 
 			if (!this.showResult) {
-				this.modal.show(this.bootstrap ? BootstrapModal : BaseModal);
+				this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal));
 			} else {
-				this.modal.show(this.bootstrap ? BootstrapModal : BaseModal).then( (res:string) => this.result = res);
+				this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal)).then( (res:string) => this.result = res);
 			}
 
-			this.modal.title = t;
+			this.bmc.title = t;
 		}
 	}
 
 	showModal() {
+
 		this.result = null;
 		this.confirmText();
 		this.cancelText();
 
 		if (!this.showResult) {
-			this.modal.show(this.bootstrap ? BootstrapModal : BaseModal);
+			this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal));
 		} else {
-			this.modal.show(this.bootstrap ? BootstrapModal : BaseModal).then( (res:string) => this.result = res);
+			this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal)).then( (res:string) => this.result = res);
 		}
 		this.cascade();
 	}

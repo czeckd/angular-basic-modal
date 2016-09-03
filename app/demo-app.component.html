@@ -9,7 +9,7 @@
 				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="customize" name="customize">Customize</label>
 				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm"
 					name="useConfirm">Confirm button</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="modal.blocking" name="blocking">Blocking</label>
+				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="bmc.blocking" name="blocking">Blocking</label>
 				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="showResult" name="showResult">Show result</label>
 			</div>
 			<div>
@@ -23,19 +23,19 @@
 
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }" >Title</label>
-				<input type="text" [(ngModel)]="modal.title" name="title" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="bmc.title" name="title" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Message</label>
-				<input type="text" [(ngModel)]="modal.message" name="message" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="bmc.message" name="message" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p *ngIf="useConfirm" [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Confirm button</label>
-				<input type="text" [(ngModel)]="modal.confirmBtn" name="confirm" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="bmc.confirmBtn" name="confirm" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Cancel button</label>
-				<input type="text" [(ngModel)]="modal.cancelBtn" name="cancel" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="bmc.cancelBtn" name="cancel" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 
 			<section *ngIf="bootstrap">
@@ -48,16 +48,17 @@
 			<section *ngIf="!bootstrap">
 				<p [ngClass]="{'form-group' : bootstrap }">
 					<label [ngClass]="{'form-label' : !bootstrap }">Height</label>
-					<input type="number" [(ngModel)]="modal.height" name="height" min="150" max="400" [ngClass]="{'form-control' : bootstrap}">
+					<input type="number" [(ngModel)]="bmc.height" name="height" min="150" max="400" [ngClass]="{'form-control' : bootstrap}">
 				</p>
 				<p [ngClass]="{'form-group' : bootstrap }">
 					<label [ngClass]="{'form-label' : !bootstrap }">Width</label>
-					<input type="number" [(ngModel)]="modal.width" name="width" min="250" max="640" [ngClass]="{'form-control' : bootstrap}">
+					<input type="number" [(ngModel)]="bmc.width" name="width" min="250" max="640" [ngClass]="{'form-control' : bootstrap}">
 				</p>
 			</section>
 		</fieldset>
 	</form>
 	<p *ngIf="showResult"><label [ngClass]="{'form-label' : !bootstrap }">Last result</label><span>&nbsp;{{result}}&nbsp;</span></p>
+
 	<div style="margin:25px 10px;" [ngClass]="{'row' : bootstrap }">
 		<button #bt (click)="showModal();bt.blur()" [ngClass]="{ 'btn btn-primary' : bootstrap }">Show Modal</button>
 		<label [ngClass]="{'checkbox-inline': bootstrap }" style="margin-left:10px;">

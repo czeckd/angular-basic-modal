@@ -4,6 +4,7 @@ import { BaseModalConfig } from './base-modal-config';
 
 @Component({
 	selector: 'modal',
+	styleUrls: ['css/modal.css'],
 	template: `
 <div class="modal-background" (click)="dismiss()">
 	<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height':  height + 'px'}">
@@ -20,6 +21,7 @@ import { BaseModalConfig } from './base-modal-config';
 })
 export class BaseModal {
 	private _cref:ComponentRef<BaseModal>;
+	private _resolver:Function;
 
 	private blocking:boolean;
 	private title:string;
@@ -29,7 +31,6 @@ export class BaseModal {
 	private height:number;
 	private confirmBtn:string;
 	private cancelBtn:string;
-	private resolver:Function;
 
 	constructor(bmc:BaseModalConfig) {
 		this.blocking = bmc.blocking;
@@ -40,11 +41,14 @@ export class BaseModal {
 		this.height = bmc.height;
 		this.confirmBtn = bmc.confirmBtn;
 		this.cancelBtn = bmc.cancelBtn;
-		this.resolver = bmc.resolver;
 	}
 
 	set cref(crf:ComponentRef<BaseModal>) {
 		this._cref = crf;
+	}
+
+	set resolver(res:Function) {
+		this._resolver = res;
 	}
 
 	dismiss(value:string) {
@@ -55,12 +59,12 @@ export class BaseModal {
 
 	confirm(value:string) {
 		this._cref.destroy();
-		this.resolver(value === undefined ? this.confirmBtn : value);
+		this._resolver(value === undefined ? this.confirmBtn : value);
 	}
 
 	cancel(value:string) {
 		this._cref.destroy();
-		this.resolver(value === undefined ? this.cancelBtn : value);
+		this._resolver(value === undefined ? this.cancelBtn : value);
 	}
 
 }
