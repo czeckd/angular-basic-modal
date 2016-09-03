@@ -2,12 +2,9 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 
-import { BaseModal } from './base-modal.component';
-import { BootstrapModal } from './bootstrap-modal.component';
-import { SimpleModal } from './simple-modal';
+import { BaseModal, BootstrapModal, SimpleModal } from './modal/index';
 
 import { DemoAppComponent } from './demo-app.component';
-
 
 @NgModule({
 	imports:         [ BrowserModule, FormsModule ],

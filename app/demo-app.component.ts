@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BaseModalConfig, SimpleModalType } from './base-modal-config';
-import { BaseModal } from './base-modal.component';
-import { BootstrapModal } from './bootstrap-modal.component';
-import { SimpleModal } from './simple-modal';
-
+import { BaseModalConfig, SimpleModalType, BaseModal, BootstrapModal, SimpleModal } from './modal/index';
 
 @Component({
 	selector: 'demo-app',
