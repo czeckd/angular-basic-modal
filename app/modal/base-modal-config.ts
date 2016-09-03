@@ -21,7 +21,7 @@ export class BaseModalConfig {
 		this._blocking = true;
 		this._title = 'Default title';
 		this._message = 'Default message';
-		this._type = SimpleModalType.Default;
+		this.type = SimpleModalType.Default;
 		this._width = 250;
 		this._height = 150;
 		this._confirmBtn = null;
