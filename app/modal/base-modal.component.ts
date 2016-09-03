@@ -1,4 +1,4 @@
-import { Component, ComponentRef, Input, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
 
 import { BaseModalConfig } from './base-modal-config';
 

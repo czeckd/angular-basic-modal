@@ -1,5 +1,5 @@
-import { Component, ComponentFactoryResolver, ComponentRef, ApplicationRef, Injectable, Injector, ReflectiveInjector,
-ResolvedReflectiveProvider, Type, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, ApplicationRef, Injectable, ReflectiveInjector,
+	Type, ViewContainerRef } from '@angular/core';
 
 import { BaseModal } from './base-modal.component';
 import { BaseModalConfig } from './base-modal-config';
