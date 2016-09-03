@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SimpleModal, SimpleModalType } from './simple-modal';
 
+import { BaseModal } from './base-modal.component';
+import { BootstrapModal } from './bootstrap-modal.component';
+
+
 @Component({
 	selector: 'demo-app',
 	templateUrl: 'app/demo-app.component.html'
@@ -19,32 +23,8 @@ export class DemoAppComponent implements OnInit {
 	private useConfirm:boolean = false;
 	private demoCascade:boolean = false;
 	private result:string;
-	private modalTemplate:string;
-
-
-	private bootstrapTemplate:string = `
-<div class="modal" id="important-msg" tabindex="-1" role="dialog" style="display:block;" (click)="dismiss('Dismiss')">
-	<div class="modal-dialog" [ngClass]= "{'modal-sm':width<301, 'modal-lg':width>599}" (click)="$event.stopPropagation()">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" (click)="cancel('Cancel')">
-					<span>&times;</span><span class="sr-only">Close</span>
-				</button>
-				<img *ngIf="icon" class="modal-icon" style="width:24px;position:relative;top:-2px;" [src]="icon" alt="" title=""/>
-				<h4 class="modal-title" style="display:inline-block;" id="modal-title" [innerHTML]="title"></h4>
-			</div>
-			<div class="modal-body" [innerHTML]="message"></div>
-			<div class="modal-footer">
-				<button *ngIf="confirmBtn" type="button" class="btn btn-default" (click)="confirm()">{{confirmBtn}}</button>
-				<button *ngIf="cancelBtn" type="button" class="btn btn-primary" (click)="cancel()">{{cancelBtn}}</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal-backdrop fade in"></div>`;
 
 	constructor(private modal:SimpleModal) {
-		this.modalTemplate = this.modal['defaultTemplate'];
 	}
 
 	ngOnInit() {
@@ -65,15 +45,10 @@ export class DemoAppComponent implements OnInit {
 						links[i].disabled = (this.bootstrap ? false : true);
 					} else {
 						links[i].disabled = (this.bootstrap ? true : false);
-						this.modalTemplate = null;
 					}
 				}
 			}
 		}, 10);
-		setTimeout( () => {
-			// Wait until after 'click'.
-			this.modalTemplate = (this.bootstrap ? this.bootstrapTemplate : this.modal['defaultTemplate']);
-		}, 50);
 	}
 
 	radio(index:any) {
@@ -149,10 +124,11 @@ export class DemoAppComponent implements OnInit {
 			this.modal.height = h + 150;
 			this.modal.title = 'Cascade 1 ' + t;
 
+
 			if (!this.showResult) {
-				this.modal.show();
+				this.modal.show(this.bootstrap ? BootstrapModal : BaseModal);
 			} else {
-				this.modal.show().then( (res:string) => this.result = res);
+				this.modal.show(this.bootstrap ? BootstrapModal : BaseModal).then( (res:string) => this.result = res);
 			}
 
 			this.modal.width = w;
@@ -160,9 +136,9 @@ export class DemoAppComponent implements OnInit {
 			this.modal.title = 'Cascade 2 ' + t;
 
 			if (!this.showResult) {
-				this.modal.show();
+				this.modal.show(this.bootstrap ? BootstrapModal : BaseModal);
 			} else {
-				this.modal.show().then( (res:string) => this.result = res);
+				this.modal.show(this.bootstrap ? BootstrapModal : BaseModal).then( (res:string) => this.result = res);
 			}
 
 			this.modal.title = t;
@@ -174,16 +150,10 @@ export class DemoAppComponent implements OnInit {
 		this.confirmText();
 		this.cancelText();
 
-		if (this.bootstrap) {
-			this.modal.template = this.bootstrapTemplate;
-		} else {
-			this.modal.template = null;
-		}
-
 		if (!this.showResult) {
-			this.modal.show();
+			this.modal.show(this.bootstrap ? BootstrapModal : BaseModal);
 		} else {
-			this.modal.show().then( (res:string) => this.result = res);
+			this.modal.show(this.bootstrap ? BootstrapModal : BaseModal).then( (res:string) => this.result = res);
 		}
 		this.cascade();
 	}

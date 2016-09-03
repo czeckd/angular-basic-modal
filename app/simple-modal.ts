@@ -1,4 +1,10 @@
-import { Component, ComponentRef, DynamicComponentLoader, ApplicationRef, Injectable, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, ApplicationRef, Injectable, Injector, ReflectiveInjector,
+ResolvedReflectiveProvider, Type, ViewContainerRef } from '@angular/core';
+
+import { BaseModal } from './base-modal.component';
+import { BaseModalConfig } from './base-modal-config';
+
+import { BootstrapModal } from './bootstrap-modal.component';
 
 export enum SimpleModalType {
 	Default,
@@ -18,93 +24,26 @@ export class SimpleModal {
 	cancelBtn:string = 'OK';
 	width:number = 250;
 	height:number = 150;
-	template:string = null;
 
-	private defaultTemplate:string = `
-<div class="modal-background" (click)="dismiss()">
-	<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height':  height + 'px'}">
-		<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title=""/>
-		<h2 class="modal-title" [innerHTML]="title"></h2>
-		<div class="modal-message" [innerHTML]="message"></div>
-		<div class="modal-buttonbar">
-			<button *ngIf="confirmBtn" (click)="confirm()">{{confirmBtn}}</button>
-			<button *ngIf="cancelBtn" (click)="cancel()" >{{cancelBtn}}</button>
-		</div>
-	</div>
-</div>`;
+	template:string;
 
-	constructor(private dcl:DynamicComponentLoader, private app:ApplicationRef) {
+	constructor(private app:ApplicationRef, private cfr:ComponentFactoryResolver) {
 	}
 
-	toComponent() : Function {
-		let blocking:boolean = this.blocking;
-		let title:string = this.title;
-		let message:string = this.message;
-		let width:number = this.width;
-		let height:number = this.height;
-		let confirmBtn:string = this.confirmBtn;
-		let cancelBtn:string = this.cancelBtn;
-		let icon:string = null;
-		let template:string = this.template;
-
-		if (template === null) {
-			template = this.defaultTemplate;
-		}
-
-		switch (this.type) {
-			case SimpleModalType.Info:
-				icon = 'images/info-circle.svg';
-				break;
-			case SimpleModalType.Warning:
-				icon = 'images/warning.svg';
-				break;
-			case SimpleModalType.Critical:
-				icon = 'images/exclamation-circle.svg';
-				break;
-			default:
-				break;
-		}
-
-		// Note: Do NOT use styleUrls, because they'll keep getting added to the DOM.
-		@Component({
-			selector: 'modal',
-			template: template
-		})
-		class Modal {
-			cref:ComponentRef<Modal> = null;
-
-			private blocking:boolean = blocking;
-			/* tslint:disable:no-unused-variable */
-			private title:string = title;
-			private message:string = message;
-			private icon:string = icon;
-			private width:number = width;
-			private height:number = height;
-			/* tslint:enable:no-unused-variable */
-			private confirmBtn:string = confirmBtn;
-			private cancelBtn:string = cancelBtn;
-			private resolver:Function;
-
-			dismiss(value:string) {
-				if (!this.blocking) {
-					this.cancel(value);
-				}
-			}
-
-			confirm(value:string) {
-				this.cref.destroy();
-				this.resolver(value === undefined ? this.confirmBtn : value);
-			}
-
-			cancel(value:string) {
-				this.cref.destroy();
-				this.resolver(value === undefined ? this.cancelBtn : value);
-			}
-		}
-		return Modal;
+	getConfig(resolver:Function) : BaseModalConfig {
+		const bmc:BaseModalConfig = new BaseModalConfig(this.type);
+		bmc.blocking = this.blocking;
+		bmc.title = this.title;
+		bmc.message = this.message;
+		bmc.width = this.width;
+		bmc.height = this.height;
+		bmc.confirmBtn = this.confirmBtn;
+		bmc.cancelBtn = this.cancelBtn;;
+		bmc.resolver = resolver;
+		return bmc;
 	}
 
-	show() : Promise<string> {
+	show(modal:Type<BaseModal>) : Promise<string> {
 		// Top level hack
 		let vcr:ViewContainerRef = this.app['_rootComponents'][0]['_hostElement'].vcRef;
 
@@ -114,13 +53,15 @@ export class SimpleModal {
 			resolve = res;
 		});
 
-		this.dcl.loadNextToLocation(this.toComponent(), vcr).then( (cref) => {
-			// Assign the cref to the newly created modal so it can self-destruct correctly.
-			cref.instance.cref = cref;
 
-			// Assign the resolve.
-			cref.instance.resolver = resolve;
-		});
+		let inj = ReflectiveInjector.resolveAndCreate([
+			{ provide: BaseModalConfig, useValue: this.getConfig(resolve) }], vcr.injector);
+
+//		let comp = this.cfr.resolveComponentFactory(BaseModal);
+		let comp = this.cfr.resolveComponentFactory(modal);
+
+		let cref:ComponentRef<any> = vcr.createComponent(comp, vcr.length, inj);
+		cref.instance.cref = cref;
 
 		return promise;
 	}
