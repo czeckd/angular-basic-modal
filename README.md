@@ -1,34 +1,31 @@
 # angular2-simple-modal
 
-The simple-modal is a lightweight, reusable Angular 2 provider that will 
-create a modal dialog, add it to the DOM, and then remove itself from the DOM 
-when it is dismissed. The modal returns a promise indicating which button was 
-pressed to dismiss the modal that then optionally can be used for further 
-processing.
+Simple-modal is a lightweight, reusable Angular 2 rc.6 compatible solution 
+that will create a modal dialog, add it to the DOM, and then remove the modal 
+from the DOM when it is dismissed. The modal returns a promise indicating 
+which button was pressed to dismiss the modal that then optionally can be used 
+for further processing.
 
-The modal provider consists of a single file: (`app/simple-modal.ts`) and 
-can be used in conjuction with Bootstrap, your own custom style sheet, or
-the provided CSS style sheet (`css/modal.css`) for presentation.
+The ``BaseModal`` has a default, generic modal style provided that can be 
+extended to display modals with other style sheets, such as Bootstrap.
 
-The simple-modal can be used as basis for extending for more complex modals 
-if needed.
-
-
-## Demo
+### Demo
 
 A [working demo](http://czeckd.github.io/angular2-simple-modal/demo/) shows
 the modal in action. It allows strings, buttons, and icons to be customized.
-Two different styling examples for modals are provided: a default style and 
-Bootstrap.
 
+### Usage
 
-## Usage
+Three parts comprise the simple-modal: a ``BaseModalConfig``, a modal 
+component, and the ``SimpleModal`` provider.
 
-Copy `simple-modal.ts` into your app. Import the SimpleModal and optionally 
-the SimpleModalType into a component and include it in that module's 
-providers and component's constructor.
+The ``BaseModalConfig`` contains the settings for the modal and is injected 
+when the modal is created by calling ``show(config:BaseModalConfig, 
+modal:Type<BaseModal>)`` on the ``SimpleModal`` provider. The modal loaded can 
+either be the default ``BaseModal`` component or a component extending it. See 
+the ``BootstrapModal`` component for an example.
 
-The following parameters can be set on a modal: 
+The following parameters are settable on the ``BaseModalConfig``: 
 - **title** - HTML or text for the modal's title
 - **message** - HTML or text for the modal's body 
 - **type** - (default, info, warning, or critical)
@@ -44,18 +41,9 @@ blocking. The cancelButton is associated with the cancel() function, which may
 optionally take a string to return via the modal's promise if clicked *( for 
 example: click('bar') )*. If no string is given for the cancel() function's 
 parameter, then the cancelBtn label will be returned.
-- **size** - (width and/or height) For the Bootstrap demo, the `[ngClass]` 
+- **width/height** - (size) For the Bootstrap demo, the `[ngClass]` 
 attribute on `<div class="modal-dialog">` element uses the width to adjust the
 size according.
-- **template** - HTML template the modal. A default template is provided in
-`simple-modal.ts` that works in conjuction with `modal.css`. If a different
-presention styling is used, say Bootstrap, then simple-modal's template must
-be set. A Bootstrap template example is given in the demo.
-
-For a usage example, see `app.module.ts` and `demo-app.component.ts` and 
-`demo-app.component.html`. Additionally, add the `modal.css` to your app's 
-`index.html` for an example of modal styling without Bootstrap.
-
 
 ### Getting started
 
@@ -69,10 +57,10 @@ For a usage example, see `app.module.ts` and `demo-app.component.ts` and
 	npm start
 	```
 
-## License
+### License
 
 MIT
 
 
-## Author
+### Author
 - David Czeck [@czeckd](https://github.com/czeckd)
