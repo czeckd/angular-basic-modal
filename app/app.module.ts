@@ -2,15 +2,18 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 
-import { BaseModal, BootstrapModal, SimpleModal } from './modal/index';
+import { ModalModule } from './modal/modal.module';
+import { BootstrapModal } from './modal/bootstrap-modal.component';
 
 import { DemoAppComponent } from './demo-app.component';
 
 @NgModule({
-	imports:         [ BrowserModule, FormsModule ],
-	declarations:    [ DemoAppComponent, BaseModal, BootstrapModal ],
-	entryComponents: [ BaseModal, BootstrapModal ],
-	providers:       [ SimpleModal ],
+	imports:         [ BrowserModule, FormsModule, ModalModule ],
+//	declarations:    [ DemoAppComponent, BaseModal, BootstrapModal, ModalModule ],
+	declarations:    [ DemoAppComponent, BootstrapModal ],
+//	entryComponents: [ BaseModal, BootstrapModal ],
+	entryComponents: [ BootstrapModal ],
+//	providers:       [ SimpleModal ],
 	bootstrap:       [ DemoAppComponent ]
 })
 export class AppModule { }
