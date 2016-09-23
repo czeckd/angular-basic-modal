@@ -1,6 +1,6 @@
 # angular2-simple-modal
 
-Simple-modal is a lightweight, reusable Angular 2 rc.6 compatible solution 
+Simple-modal is a lightweight, reusable Angular 2.0.0 compatible solution 
 that will create a modal dialog, add it to the DOM, and then remove the modal 
 from the DOM when it is dismissed. The modal returns a promise indicating 
 which button was pressed to dismiss the modal that then optionally can be used 

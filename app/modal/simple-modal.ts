@@ -10,7 +10,7 @@ export class SimpleModal {
 	constructor(private app:ApplicationRef, private cfr:ComponentFactoryResolver) {
 	}
 
-	show(config:BaseModalConfig, modal:Type<BaseModal>) : Promise<string> {
+	show(config:any, modal:Type<BaseModal>) : Promise<string> {
 		// Top level hack
 		let vcr:ViewContainerRef = this.app['_rootComponents'][0]['_hostElement'].vcRef;
 
@@ -19,8 +19,15 @@ export class SimpleModal {
 		let promise = new Promise<string>((res) => {
 			resolve = res;
 		});
-		let inj = ReflectiveInjector.resolveAndCreate([
-			{ provide: BaseModalConfig, useValue: config }], vcr.injector);
+
+		let inj:ReflectiveInjector;
+		if (config.constructor.name === 'BaseModalConfig') {
+			inj = ReflectiveInjector.resolveAndCreate([
+				{ provide: BaseModalConfig, useValue: config }], vcr.injector);
+		} else {
+			inj = ReflectiveInjector.resolveAndCreate([
+				{ provide: config.constructor, useValue: config }, { provide: BaseModalConfig, useValue: config }], vcr.injector);
+		}
 
 		let comp = this.cfr.resolveComponentFactory(modal);
 
