@@ -1,6 +1,6 @@
 (function(global) {
 
-  var ngVer = '@2.0.0';
+  var ngVer = '@2.1.0';
 
   // map tells the System loader where to look for things
   var map = {
