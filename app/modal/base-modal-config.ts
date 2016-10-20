@@ -78,6 +78,7 @@ export class BaseModalConfig {
 				this._icon = 'images/exclamation-circle.svg';
 				break;
 			default:
+				this._icon = undefined;
 				break;
 		}
 	}
