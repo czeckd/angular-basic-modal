@@ -12,7 +12,10 @@ export class SimpleModal {
 	show(config:any, modal:Type<BaseModal>) : Promise<string> {
 
 		// Top level hack
-		let root:HTMLElement = (this.app['_rootComponents'][0].hostView as EmbeddedViewRef<any>).rootNodes[0];
+//		let root:HTMLElement = (this.app['_rootComponents'][0].hostView as EmbeddedViewRef<any>).rootNodes[0];
+
+		// Try 2.3 non-hack way
+		let root = (this.app.components[0].hostView as EmbeddedViewRef<any>).rootNodes[0];
 
 		// Set up a promise to resolve when the modal is dismissed.
 		let resolve:(value?: string | PromiseLike<string>) => void;
@@ -29,7 +32,6 @@ export class SimpleModal {
 				{ provide: config.constructor, useValue: config }, { provide: BaseModalConfig, useValue: config }], this.injector);
 		}
 
-
 		let comp = this.cfr.resolveComponentFactory(modal);
 		let cref = comp.create(inj);
 
@@ -37,18 +39,12 @@ export class SimpleModal {
 		cref.instance.resolver = resolve;
 
 		let vref = cref.hostView as EmbeddedViewRef<any>;
-		let cdr = cref.changeDetectorRef;
 		let app:any = this.app;
 
+		app.attachView(cref.hostView);
 		cref.onDestroy( () => {
-			app.unregisterChangeDetector(cdr);
-
-			if (root.parentNode) {
-				root.removeChild(vref.rootNodes[0]);
-			}
+			app.detachView(cref.hostView);
 		});
-
-		app.registerChangeDetector(cdr);
 
 		root.appendChild(vref.rootNodes[0]);
 
