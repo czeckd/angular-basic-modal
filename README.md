@@ -16,6 +16,19 @@ the modal in action. It allows strings, buttons, and icons to be customized.
 
 ### Usage
 
+Import the ``ModalModule.forRoot()`` in your app's bade module. For example:
+```ts
+import { ModalModule } from './modal/modal.module';
+
+@NgModule({
+    imports: [ ModalModule.forRoot() ],
+    ...
+})
+export class AppModule {}
+```
+
+See ``app/app.module.ts`` for example.
+
 Three parts comprise the simple-modal: a ``BaseModalConfig``, a modal 
 component, and the ``SimpleModal`` provider.
 

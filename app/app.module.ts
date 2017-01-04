@@ -8,13 +8,10 @@ import { BootstrapModal } from './modal/bootstrap-modal.component';
 import { DemoAppComponent } from './demo-app.component';
 
 @NgModule({
-	imports:         [ BrowserModule, FormsModule, ModalModule ],
-//	declarations:    [ DemoAppComponent, BaseModal, BootstrapModal, ModalModule ],
+	imports:         [ BrowserModule, FormsModule, ModalModule.forRoot() ],
 	declarations:    [ DemoAppComponent, BootstrapModal ],
-//	entryComponents: [ BaseModal, BootstrapModal ],
 	entryComponents: [ BootstrapModal ],
-//	providers:       [ SimpleModal ],
 	bootstrap:       [ DemoAppComponent ]
 })
-export class AppModule { }
+export class AppModule {}
 
