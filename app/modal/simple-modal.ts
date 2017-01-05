@@ -11,10 +11,7 @@ export class SimpleModal {
 
 	show(config:any, modal:Type<BaseModal>) : Promise<string> {
 
-		// Top level hack
-//		let root:HTMLElement = (this.app['_rootComponents'][0].hostView as EmbeddedViewRef<any>).rootNodes[0];
-
-		// Try 2.3 non-hack way
+		// Top level
 		let root = (this.app.components[0].hostView as EmbeddedViewRef<any>).rootNodes[0];
 
 		// Set up a promise to resolve when the modal is dismissed.
@@ -53,5 +50,4 @@ export class SimpleModal {
 
 		return promise;
 	}
-
 }
