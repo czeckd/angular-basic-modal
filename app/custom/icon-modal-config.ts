@@ -9,7 +9,7 @@ export class IconModalConfig extends BaseModalConfig {
 
 	constructor() {
 		super();
-		this.type = IconModalType.Default;
+		this.type = IconModalType.None;
 	}
 
 	get type() : IconModalType {

@@ -24,7 +24,7 @@ export class DemoAppComponent implements OnInit {
 	private modComp:Array<string> = [ 'Basic', 'Icon', 'Bootstrap' ];
 	private mc:number = 0;
 	private modTypes:Array<string> = [];
-	private mt:IconModalType = IconModalType.Default;
+	private mt:IconModalType = IconModalType.None;
 	private showResult:boolean = true;
 	private useConfirm:boolean = false;
 	private demoCascade:boolean = false;
@@ -105,7 +105,7 @@ export class DemoAppComponent implements OnInit {
 		default:
 			this.modalconfig.title = 'Default title';
 			this.modalconfig.message = 'Default message.';
-			this.imc.type = IconModalType.Default;
+			this.imc.type = IconModalType.None;
 			break;
 		}
 
