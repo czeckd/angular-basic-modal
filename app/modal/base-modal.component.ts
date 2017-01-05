@@ -8,7 +8,6 @@ import { BaseModalConfig } from './base-modal-config';
 	template: `
 <div class="modal-background" (click)="dismiss()">
 	<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height':  height + 'px'}">
-<!--		<img *ngIf="icon" class="modal-icon" [src]="icon" alt="" title=""/> -->
 		<h2 class="modal-title" [innerHTML]="title"></h2>
 		<div class="modal-message" [innerHTML]="message"></div>
 		<div class="modal-buttonbar">
@@ -26,7 +25,6 @@ export class BaseModal {
 	private blocking:boolean;
 	private title:string;
 	private message:string;
-//	private icon:string;
 	private width:number;
 	private height:number;
 	private confirmBtn:string;
@@ -36,7 +34,6 @@ export class BaseModal {
 		this.blocking = bmc.blocking;
 		this.title = bmc.title;
 		this.message = bmc.message;
-//		this.icon = bmc.icon;
 		this.width = bmc.width;
 		this.height = bmc.height;
 		this.confirmBtn = bmc.confirmBtn;
@@ -66,5 +63,4 @@ export class BaseModal {
 		this._cref.destroy();
 		this._resolver(value === undefined ? this.cancelBtn : value);
 	}
-
 }
