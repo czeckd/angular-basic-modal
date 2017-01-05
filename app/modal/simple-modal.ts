@@ -26,10 +26,13 @@ export class SimpleModal {
 		let inj:ReflectiveInjector;
 		if (config.constructor.name === 'BaseModalConfig') {
 			inj = ReflectiveInjector.resolveAndCreate([
-				{ provide: BaseModalConfig, useValue: config }], this.injector);
+				{ provide: BaseModalConfig, useValue: config }
+			], this.injector);
 		} else {
 			inj = ReflectiveInjector.resolveAndCreate([
-				{ provide: config.constructor, useValue: config }, { provide: BaseModalConfig, useValue: config }], this.injector);
+				{ provide: config.constructor, useValue: config },
+				{ provide: BaseModalConfig, useValue: config }
+			], this.injector);
 		}
 
 		let comp = this.cfr.resolveComponentFactory(modal);

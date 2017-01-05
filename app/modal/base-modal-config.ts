@@ -1,17 +1,19 @@
+/*
 export enum SimpleModalType {
 	Default,
 	Info,
 	Warning,
 	Critical
 }
+*/
 
 export class BaseModalConfig {
 
 	private _blocking:boolean;
 	private _title:string;
 	private _message:string;
-	private _type:SimpleModalType;
-	private _icon:string;
+//	private _type:SimpleModalType;
+//	private _icon:string;
 	private _width:number;
 	private _height:number;
 	private _confirmBtn:string;
@@ -21,10 +23,10 @@ export class BaseModalConfig {
 		this._blocking = true;
 		this._title = 'Default title';
 		this._message = 'Default message';
-		this.type = SimpleModalType.Default;
+//		this.type = SimpleModalType.Default;
 		this._width = 250;
 		this._height = 150;
-		this._confirmBtn = null;
+		this._confirmBtn = '';
 		this._cancelBtn = 'OK';
 	}
 
@@ -51,7 +53,7 @@ export class BaseModalConfig {
 	set message(val:string) {
 		this._message = val;
 	}
-
+/*
 	get icon() : string {
 		return this._icon;
 	}
@@ -78,11 +80,11 @@ export class BaseModalConfig {
 				this._icon = 'images/exclamation-circle.svg';
 				break;
 			default:
-				this._icon = undefined;
+				this._icon = ''; // undefined;
 				break;
 		}
 	}
-
+*/
 	get width() : number {
 		return this._width;
 	}
