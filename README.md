@@ -1,4 +1,4 @@
-# angular2-simple-modal
+# angular-simple-modal
 
 Simple-modal is a lightweight, reusable Angular 2.3.0 compatible solution 
 that will create a modal dialog, add it to the DOM, and then remove the modal 
@@ -11,7 +11,7 @@ extended to display modals with other style sheets, such as Bootstrap.
 
 ### Demo
 
-A [working demo](http://czeckd.github.io/angular2-simple-modal/demo/) shows
+A [working demo](http://czeckd.github.io/angular-simple-modal/demo/) shows
 the modal in action. It allows strings, buttons, and icons to be customized.
 
 ### Usage
