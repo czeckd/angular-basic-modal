@@ -1,20 +1,33 @@
-# angular2-simple-modal
+# angular-simple-modal
 
-Simple-modal is a lightweight, reusable Angular 2.0.0 compatible solution 
-that will create a modal dialog, add it to the DOM, and then remove the modal 
-from the DOM when it is dismissed. The modal returns a promise indicating 
-which button was pressed to dismiss the modal that then optionally can be used 
-for further processing.
+Simple-modal is a lightweight, reusable Angular 2.3.0 or greater compatible 
+solution that will create a modal dialog, add it to the DOM, and then remove 
+the modal from the DOM when it is dismissed. The modal returns a promise 
+indicating which button was pressed to dismiss the modal that then optionally 
+can be used for further processing.
 
 The ``BaseModal`` has a default, generic modal style provided that can be 
 extended to display modals with other style sheets, such as Bootstrap.
 
 ### Demo
 
-A [working demo](http://czeckd.github.io/angular2-simple-modal/demo/) shows
+A [working demo](http://czeckd.github.io/angular-simple-modal/demo/) shows
 the modal in action. It allows strings, buttons, and icons to be customized.
 
 ### Usage
+
+Import the ``ModalModule.forRoot()`` in your app's bade module. For example:
+```ts
+import { ModalModule } from './modal/modal.module';
+
+@NgModule({
+    imports: [ ModalModule.forRoot() ],
+    ...
+})
+export class AppModule {}
+```
+
+See ``app/app.module.ts`` for example.
 
 Three parts comprise the simple-modal: a ``BaseModalConfig``, a modal 
 component, and the ``SimpleModal`` provider.

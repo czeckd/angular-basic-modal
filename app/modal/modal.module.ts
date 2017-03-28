@@ -1,16 +1,22 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, ModuleWithProviders } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { BaseModal, SimpleModal } from './index';
 
 @NgModule({
-	imports:         [ BrowserModule, FormsModule ],
+	imports:         [ CommonModule, FormsModule ],
 	declarations:    [ BaseModal ],
 	exports:         [ BaseModal ],
-	entryComponents: [ BaseModal ],
-	providers:       [ SimpleModal ]
+	entryComponents: [ BaseModal ]
 })
 
 export class ModalModule {
+
+	static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: ModalModule,
+			providers: [ SimpleModal ]
+		};
+	}
 }
