@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { BaseModalConfig, BaseModal } from './index';
+import { BaseModalConfig, BaseModal } from '../modal/index';
 
 @Component({
 	selector: 'modal',
@@ -12,7 +12,6 @@ import { BaseModalConfig, BaseModal } from './index';
 				<button type="button" class="close" data-dismiss="modal" (click)="cancel('Cancel')">
 					<span>&times;</span><span class="sr-only">Close</span>
 				</button>
-				<img *ngIf="icon" class="modal-icon" style="width:24px;position:relative;top:-2px;" [src]="icon" alt="" title=""/>
 				<h4 class="modal-title" style="display:inline-block;" id="modal-title" [innerHTML]="title"></h4>
 			</div>
 			<div class="modal-body" [innerHTML]="message"></div>

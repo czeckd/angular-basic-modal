@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BaseModalConfig, SimpleModalType, BaseModal, BootstrapModal, SimpleModal } from './modal/index';
+import { BaseModalConfig, BaseModal, SimpleModal } from './modal/index';
+import { BootstrapModal, IconModal, IconModalType, IconModalConfig } from './custom/index';
 
 @Component({
 	selector: 'demo-app',
+	styles: [ '[hidden] { display: none !important;}' ],
 	templateUrl: 'app/demo-app.component.html'
 })
 
@@ -14,24 +16,33 @@ export class DemoAppComponent implements OnInit {
 	private bootstrapSizes:Array<string> = [ 'small', 'default', 'large' ];
 	/* tslint:enable:no-unused-variable */
 	private bootstrap:boolean = false;
+
+	private modComp:Array<string> = [ 'Basic', 'Icon', 'Bootstrap' ];
+	private mc:number = 0;
 	private modTypes:Array<string> = [];
-	private mt:SimpleModalType = SimpleModalType.Default;
+	private mt:IconModalType = IconModalType.None;
 	private showResult:boolean = true;
 	private useConfirm:boolean = false;
 	private demoCascade:boolean = false;
 	private result:string;
 
+	private modalconfig:BaseModalConfig;
 	private bmc:BaseModalConfig = new BaseModalConfig();
+	private imc:IconModalConfig = new IconModalConfig();
 
 	constructor(private modal:SimpleModal) {
 	}
 
 	ngOnInit() {
-		for (let t in SimpleModalType) {
-			if (typeof SimpleModalType[t] === 'number') {
+		this.modalconfig = this.bmc;
+
+		for (let t in IconModalType) {
+			if (typeof IconModalType[t] === 'number') {
 				this.modTypes.push(t);
 			}
 		}
+		// Set-up default
+		this.radio(1);
 	}
 
 	swapStyleSheet() {
@@ -50,112 +61,147 @@ export class DemoAppComponent implements OnInit {
 		}, 10);
 	}
 
+	comp(index:any) {
+		this.mc = index;
+		switch (this.mc) {
+		case 0:
+			this.modalconfig = this.bmc;
+			this.bootstrap = false;
+			break;
+		case 1:
+			this.modalconfig = this.imc;
+			this.bootstrap = false;
+			break;
+		case 2:
+			this.modalconfig = this.bmc;
+			this.bootstrap = true;
+			break;
+		}
+
+		this.swapStyleSheet();
+	}
+
 	radio(index:any) {
 		this.mt = index;
 
 		switch (this.mt) {
-		case SimpleModalType.Info:
-			this.bmc.title = 'Information';
-			this.bmc.message = 'This is a simple informational message.';
-			this.bmc.type = SimpleModalType.Info;
+		case IconModalType.Info:
+			this.modalconfig.title = 'Info';
+			this.modalconfig.message = 'This is a simple informational message.';
+			this.imc.type = IconModalType.Info;
 			break;
-		case SimpleModalType.Warning:
-			this.bmc.title = 'Warning';
-			this.bmc.message = 'This is a simple warning message.';
-			this.bmc.type = SimpleModalType.Warning;
+		case IconModalType.Warning:
+			this.modalconfig.title = 'Warning';
+			this.modalconfig.message = 'This is a simple warning message.';
+			this.imc.type = IconModalType.Warning;
 			break;
-		case SimpleModalType.Critical:
-			this.bmc.title = 'Critical';
-			this.bmc.message = 'This is a simple critical message.';
-			this.bmc.type = SimpleModalType.Critical;
+		case IconModalType.Critical:
+			this.modalconfig.title = 'Critical';
+			this.modalconfig.message = 'This is a simple critical message.';
+			this.imc.type = IconModalType.Critical;
 			break;
 		default:
-			this.bmc.title = 'Default title';
-			this.bmc.message = 'Default message.';
-			this.bmc.type = SimpleModalType.Default;
+			this.modalconfig.title = 'Default title';
+			this.modalconfig.message = 'Default message.';
+			this.imc.type = IconModalType.None;
 			break;
 		}
-		this.bmc.cancelBtn = 'OK';
-		this.bmc.confirmBtn = null;
+
+		this.modalconfig.cancelBtn = 'OK';
+		this.modalconfig.confirmBtn = '';
 
 		if (!this.bootstrap) {
-			this.bmc.width = 250;
+			this.modalconfig.width = 250;
 		}
-		this.bmc.height = 150;
+		this.modalconfig.height = 150;
 		this.confirmText();
 	}
 
 	bootsize(size:string) {
 		switch (size) {
 		case 'small':
-			this.bmc.width = 250;
+			this.modalconfig.width = 250;
 			break;
 		case 'large':
-			this.bmc.width = 600;
+			this.modalconfig.width = 600;
 			break;
 		default:
-			this.bmc.width = 400;
+			this.modalconfig.width = 400;
 			break;
 		}
 	}
 
 	confirmText() {
-		if (this.useConfirm && this.bmc.confirmBtn === null) {
-			this.bmc.confirmBtn = 'Confirm';
+		if (this.useConfirm && this.modalconfig.confirmBtn === '') {
+			this.modalconfig.confirmBtn = 'Confirm';
 		} else if (!this.useConfirm) {
-			this.bmc.confirmBtn = null;
+			this.modalconfig.confirmBtn = '';
 		}
 	}
 
 	cancelText() {
-		if (this.bmc.blocking && this.bmc.cancelBtn.length === 0) {
-			this.bmc.cancelBtn = 'OK';
+		if (this.modalconfig.blocking && this.modalconfig.cancelBtn.length === 0) {
+			this.modalconfig.cancelBtn = 'OK';
 		}
 	}
 
 	private cascade() {
 
-		let w:number = this.bmc.width;
-		let h:number = this.bmc.height;
-		let t:string = this.bmc.title;
+		let w:number = this.modalconfig.width;
+		let h:number = this.modalconfig.height;
+		let t:string = this.modalconfig.title;
 
 		if (this.demoCascade) {
-			this.bmc.width = w + 150;
-			this.bmc.height = h + 150;
-			this.bmc.title = 'Cascade 1 ' + t;
+			this.modalconfig.width = w + 150;
+			this.modalconfig.height = h + 150;
+			this.modalconfig.title = 'Cascade 1 ' + t;
 
+			this.doShow();
 
-			if (!this.showResult) {
-				this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal));
-			} else {
-				this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal)).then( (res:string) => this.result = res);
-			}
+			this.modalconfig.width = w;
+			this.modalconfig.height = h;
+			this.modalconfig.title = 'Cascade 2 ' + t;
 
-			this.bmc.width = w;
-			this.bmc.height = h;
-			this.bmc.title = 'Cascade 2 ' + t;
+			this.doShow();
 
-			if (!this.showResult) {
-				this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal));
-			} else {
-				this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal)).then( (res:string) => this.result = res);
-			}
+			this.modalconfig.title = t;
+		}
+	}
 
-			this.bmc.title = t;
+	private doShow() {
+		switch (this.mc) {
+		case 0:
+			this.modal.show(this.modalconfig, BaseModal).then( (res:string) => {
+				if (this.showResult) {
+					this.result = res
+				}
+			});
+			break;
+		case 1:
+			this.modal.show(this.modalconfig, IconModal).then( (res:string) => {
+				if (this.showResult) {
+					this.result = res
+				}
+			});
+			break;
+		case 2:
+			this.modal.show(this.modalconfig, BootstrapModal).then( (res:string) => {
+				if (this.showResult) {
+					this.result = res
+				}
+			});
+			break;
 		}
 	}
 
 	showModal() {
 
-		this.result = null;
+		this.result = '';
 		this.confirmText();
 		this.cancelText();
 
-		if (!this.showResult) {
-			this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal));
-		} else {
-			this.modal.show(this.bmc, (this.bootstrap ? BootstrapModal : BaseModal)).then( (res:string) => this.result = res);
-		}
+		this.doShow();
+
 		this.cascade();
 	}
 }

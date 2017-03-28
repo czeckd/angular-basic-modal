@@ -1,58 +1,69 @@
-<div style="margin:25px;tab-size:2;">
+<div style="margin:25px;tab-size:2;" [ngClass]="{'container-fluid' : bootstrap }">
 	<h2>Simple Modal Demo</h2>
-	<form [ngClass]="{'row' : bootstrap }">
+	<form> <!-- [ngClass]="{'row' : bootstrap }"> -->
 		<fieldset>
-			<div [ngClass]="{'checkbox-inline': bootstrap }">
-				<label [ngClass]="{'form-label' : !bootstrap }">Settings</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="bootstrap"
-					name="bootstrap" (click)="swapStyleSheet()">Bootstrap</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="customize" name="customize">Customize</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm"
-					name="useConfirm">Confirm button</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="bmc.blocking" name="blocking">Blocking</label>
-				<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="showResult" name="showResult">Show result</label>
-			</div>
 			<div>
-				<label [ngClass]="{'form-label' : !bootstrap }">Modal type</label>
-				<label *ngFor="let t of modTypes; let i=index" [ngClass]="{'radio-inline': bootstrap }">
-					<input type="radio" name="modt" (click)="radio(i)" [checked]="i===0">{{t}}
+				<label [ngClass]="{'form-label' : !bootstrap }">Type</label>
+				<div>
+					<label *ngFor="let t of modComp; let i=index" [ngClass]="{'radio-inline': bootstrap }">
+						<input type="radio" name="modc" (click)="comp(i)" [checked]="i===0">{{t}}
+					</label>
+				</div>
+			</div>
+			<div [hidden]="mc!==1">
+				<label class="form-label">Icon</label>
+				<label *ngFor="let t of modTypes; let i=index">
+					<input type="radio" name="modt" (click)="radio(i)" [checked]="i===1">{{t}}
 				</label>
 			</div>
+			<small *ngIf="bootstrap">&nbsp;</small>
+			<div>
+				<label [ngClass]="{'form-label' : !bootstrap }">Settings</label>
+				<div>
+					<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="customize" name="customize">Customize</label>
+					<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="useConfirm" name="useConfirm">Confirm button</label>
+					<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="modalconfig.blocking" name="blocking">Blocking</label>
+					<label [ngClass]="{'checkbox-inline': bootstrap }"><input type="checkbox" [(ngModel)]="showResult" name="showResult">Show result</label>
+				</div>
+			</div>
 		</fieldset>
+		<small *ngIf="bootstrap">&nbsp;</small>
 		<fieldset *ngIf="customize" [ngClass]="{'col-md-6' : bootstrap }">
 
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }" >Title</label>
-				<input type="text" [(ngModel)]="bmc.title" name="title" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="modalconfig.title" name="title" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Message</label>
-				<input type="text" [(ngModel)]="bmc.message" name="message" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="modalconfig.message" name="message" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p *ngIf="useConfirm" [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Confirm button</label>
-				<input type="text" [(ngModel)]="bmc.confirmBtn" name="confirm" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="modalconfig.confirmBtn" name="confirm" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 			<p [ngClass]="{'form-group' : bootstrap }">
 				<label [ngClass]="{'form-label' : !bootstrap }">Cancel button</label>
-				<input type="text" [(ngModel)]="bmc.cancelBtn" name="cancel" [ngClass]="{'form-control' : bootstrap}">
+				<input type="text" [(ngModel)]="modalconfig.cancelBtn" name="cancel" [ngClass]="{'form-control' : bootstrap}">
 			</p>
 
 			<section *ngIf="bootstrap">
 				<label>Size</label>
-				<label *ngFor="let sz of bootstrapSizes" [ngClass]="{'radio-inline': bootstrap }">
-					<input type="radio" name="bsize" (click)="bootsize(sz)">{{sz}}
-				</label>
+				<div>
+					<label *ngFor="let sz of bootstrapSizes" [ngClass]="{'radio-inline': bootstrap }">
+						<input type="radio" name="bsize" (click)="bootsize(sz)">{{sz}}
+					</label>
+				</div>
 			</section>
 
 			<section *ngIf="!bootstrap">
 				<p [ngClass]="{'form-group' : bootstrap }">
 					<label [ngClass]="{'form-label' : !bootstrap }">Height</label>
-					<input type="number" [(ngModel)]="bmc.height" name="height" min="150" max="400" [ngClass]="{'form-control' : bootstrap}">
+					<input type="number" [(ngModel)]="modalconfig.height" name="height" min="150" max="400" [ngClass]="{'form-control' : bootstrap}">
 				</p>
 				<p [ngClass]="{'form-group' : bootstrap }">
 					<label [ngClass]="{'form-label' : !bootstrap }">Width</label>
-					<input type="number" [(ngModel)]="bmc.width" name="width" min="250" max="640" [ngClass]="{'form-control' : bootstrap}">
+					<input type="number" [(ngModel)]="modalconfig.width" name="width" min="250" max="640" [ngClass]="{'form-control' : bootstrap}">
 				</p>
 			</section>
 		</fieldset>
@@ -66,3 +77,4 @@
 		</label>
 	</div>
 </div>
+

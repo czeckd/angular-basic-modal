@@ -1,10 +1,10 @@
 # angular-simple-modal
 
-Simple-modal is a lightweight, reusable Angular 2.3.0 compatible solution 
-that will create a modal dialog, add it to the DOM, and then remove the modal 
-from the DOM when it is dismissed. The modal returns a promise indicating 
-which button was pressed to dismiss the modal that then optionally can be used 
-for further processing.
+Simple-modal is a lightweight, reusable Angular 2.3.0 or greater compatible 
+solution that will create a modal dialog, add it to the DOM, and then remove 
+the modal from the DOM when it is dismissed. The modal returns a promise 
+indicating which button was pressed to dismiss the modal that then optionally 
+can be used for further processing.
 
 The ``BaseModal`` has a default, generic modal style provided that can be 
 extended to display modals with other style sheets, such as Bootstrap.
