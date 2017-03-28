@@ -45,6 +45,8 @@ export class DemoAppComponent implements OnInit {
 				this.modTypes.push(t);
 			}
 		}
+		// Set-up default
+		this.radio(1);
 	}
 
 	swapStyleSheet() {
@@ -88,7 +90,7 @@ export class DemoAppComponent implements OnInit {
 
 		switch (this.mt) {
 		case IconModalType.Info:
-			this.modalconfig.title = 'Information';
+			this.modalconfig.title = 'Info';
 			this.modalconfig.message = 'This is a simple informational message.';
 			this.imc.type = IconModalType.Info;
 			break;

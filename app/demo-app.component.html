@@ -13,7 +13,7 @@
 			<div *ngIf="mc===1">
 				<label class="form-label">Icon</label>
 				<label *ngFor="let t of modTypes; let i=index">
-					<input type="radio" name="modt" (click)="radio(i)" [checked]="i===0">{{t}}
+					<input type="radio" name="modt" (click)="radio(i)" [checked]="i===1">{{t}}
 				</label>
 			</div>
 			<small *ngIf="bootstrap">&nbsp;</small>
