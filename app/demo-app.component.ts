@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BaseModalConfig, BaseModal, SimpleModal } from './modal/index';
-
-import { IconModalType } from './custom/icon-modal-type.enum';
-import { IconModalConfig } from './custom/icon-modal-config';
-import { IconModal } from './custom/icon-modal.component';
-import { BootstrapModal } from './custom/bootstrap-modal.component';
-
+import { BootstrapModal, IconModal, IconModalType, IconModalConfig } from './custom/index';
 
 @Component({
 	selector: 'demo-app',
