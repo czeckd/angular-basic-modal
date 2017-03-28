@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 
 import { BaseModal } from '../modal/index';
 import { IconModalConfig } from './icon-modal-config';
-import { IconModalType } from './icon-modal-type.enum';
-
 
 @Component({
 	selector: 'modal',
@@ -55,5 +53,12 @@ export class IconModal extends BaseModal {
 	set icon(icn:string)  {
 		this._icon = icn;
 	}
+}
+
+export enum IconModalType {
+	None,
+	Info,
+	Warning,
+	Critical
 }
 

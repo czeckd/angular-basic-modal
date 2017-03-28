@@ -1,7 +1,5 @@
 import { BaseModalConfig } from '../modal/base-modal-config';
-
-import { IconModalType } from './icon-modal-type.enum';
-
+import { IconModalType } from './icon-modal.component';
 
 export class IconModalConfig extends BaseModalConfig {
 
