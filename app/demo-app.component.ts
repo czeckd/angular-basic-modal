@@ -5,6 +5,7 @@ import { BootstrapModal, IconModal, IconModalType, IconModalConfig } from './cus
 
 @Component({
 	selector: 'demo-app',
+	styles: [ '[hidden] { display: none !important;}' ],
 	templateUrl: 'app/demo-app.component.html'
 })
 
