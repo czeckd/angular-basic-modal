@@ -1,6 +1,6 @@
 {
   "name": "angular-simple-modal",
-  "description": "Angular 2 provider to add and display simple modal dialog windows.",
+  "description": "Angular 2+ provider to add and display simple modal dialog windows.",
   "version": "4.0.0",
   "repository": {
     "type": "git",
