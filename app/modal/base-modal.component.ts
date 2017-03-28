@@ -48,18 +48,18 @@ export class BaseModal {
 		this._resolver = res;
 	}
 
-	dismiss(value:string) {
+	dismiss(value?:string) {
 		if (!this.blocking) {
 			this.cancel(value);
 		}
 	}
 
-	confirm(value:string) {
+	confirm(value?:string) {
 		this._cref.destroy();
 		this._resolver(value === undefined ? this.confirmBtn : value);
 	}
 
-	cancel(value:string) {
+	cancel(value?:string) {
 		this._cref.destroy();
 		this._resolver(value === undefined ? this.cancelBtn : value);
 	}
