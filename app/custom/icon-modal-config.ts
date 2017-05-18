@@ -1,4 +1,4 @@
-import { BaseModalConfig } from '../modal/base-modal-config';
+import { BaseModalConfig } from 'angular-basic-modal';
 import { IconModalType } from './icon-modal.component';
 
 export class IconModalConfig extends BaseModalConfig {

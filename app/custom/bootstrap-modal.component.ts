@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { BaseModalConfig, BaseModal } from '../modal/index';
+import { BaseModalConfig, BaseModal } from 'angular-basic-modal';
 
 @Component({
 	selector: 'modal',
