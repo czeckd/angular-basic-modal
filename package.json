@@ -1,40 +1,52 @@
 {
-  "name": "angular-simple-modal",
-  "description": "Angular 2+ provider to add and display simple modal dialog windows.",
-  "version": "4.0.0",
+  "name": "angular-basic-modal",
+  "description": "Angular 4+ provider to add and display simple modal dialog windows.",
+  "version": "4.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/czeckd/angular-simple-modal.git"
+    "url": "https://github.com/czeckd/angular-basic-modal.git"
   },
   "author": "David Czeck",
   "license": "MIT",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "start": "rimraf runt && npm run dist && tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "lint": "tslint -c tslint.json app/**/*.ts -t verbose || true",
+    "dist": "tools/mkdist.sh",
+    "lint": "tslint -c tslint.json lib/**/*.ts app/**/*.ts -t verbose || true",
     "lite": "lite-server"
   },
-  "dependencies": {
-    "@angular/common": "~4.0.0",
-    "@angular/compiler": "~4.0.0",
-    "@angular/core": "~4.0.0",
-    "@angular/forms": "~4.0.0",
-    "@angular/platform-browser": "~4.0.0",
-    "@angular/platform-browser-dynamic": "~4.0.0",
-    "core-js": "^2.4.1",
-    "systemjs": "0.19.47",
-    "rxjs": "^5.2.0",
-    "zone.js": "^0.8.4"
+  "main": "angular-basic-modal.bundle.js",
+  "module": "angular-basic-modal.module.js",
+  "types": "index.d.ts",
+  "keywords": [
+    "angular",
+    "modal"
+  ],
+  "peerDependencies": {
+    "@angular/core": ">=4.0.0"
   },
   "devDependencies": {
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
     "@types/core-js": "^0.9.39",
     "@types/node": "^6.0.60",
+    "bootstrap": "^3.3.7",
     "concurrently": "^2.2.0",
+    "core-js": "^2.4.1",
     "lite-server": "^2.2.2",
-    "rollup": "^0.41.4",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.41.6",
+    "rxjs": "^5.2.0",
+    "systemjs": "0.19.47",
+    "ts-node": "^3.0.2",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0"
+    "typescript": "~2.2.0",
+    "zone.js": "^0.8.4"
   }
 }

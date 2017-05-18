@@ -4,7 +4,7 @@ import { BaseModalConfig } from './base-modal-config';
 
 @Component({
 	selector: 'modal',
-	styleUrls: ['css/modal.css'],
+	styleUrls: [ 'lib/base-modal.component.css' ],
 	template: `
 <div class="modal-background" (click)="dismiss()">
 	<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height':  height + 'px'}">
@@ -22,13 +22,13 @@ export class BaseModal {
 	private _cref:ComponentRef<BaseModal>;
 	private _resolver:Function;
 
-	private blocking:boolean;
-	private title:string;
-	private message:string;
-	private width:number;
-	private height:number;
-	private confirmBtn:string;
-	private cancelBtn:string;
+	blocking:boolean;
+	title:string;
+	message:string;
+	width:number;
+	height:number;
+	confirmBtn:string;
+	cancelBtn:string;
 
 	constructor(bmc:BaseModalConfig) {
 		this.blocking = bmc.blocking;

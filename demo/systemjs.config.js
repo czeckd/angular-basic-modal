@@ -1,18 +1,20 @@
 (function(global) {
 
-  var ngVer = '@4.0.0';
+  var ngVer = '@4.1.0';
 
   // map tells the System loader where to look for things
   var map = {
     'app':  'app', // 'dist',
     'rxjs': 'https://unpkg.com/rxjs@5.2.0',
-    '@angular': 'https://unpkg.com/@angular'
+    '@angular': 'https://unpkg.com/@angular',
+	'angular-basic-modal': 'lib'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':  { main: 'main.ts',  defaultExtension: 'ts' },
-    'rxjs': { defaultExtension: 'js' }
+    'rxjs': { defaultExtension: 'js' },
+	'angular-basic-modal': { main: 'index.ts', defaultExtension: 'ts' }
   };
 
   var ngPackageNames = [
