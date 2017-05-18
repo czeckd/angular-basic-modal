@@ -86,11 +86,14 @@ size according.
 
 ## Extending
 
-As noted above, the BaseModal can be extended. Here is an example for Bootstrap. The
-component:
+As noted above, the BaseModal can be extended. Here is a Webpack example for a 
+Bootstrap styled modal. 
+
+The component:
 ```typescript
 import { Component } from '@angular/core';
-import { BaseModalConfig, BaseModal } from 'angular-basic-modal';
+import { BaseModal } from 'angular-basic-modal/base-modal.component';
+import { BaseModalConfig } form 'angular-basic-modal/base-modal-config';
 
 @Component({
   selector: 'bs-modal',
@@ -128,6 +131,11 @@ The template:
 </div>
 <div class="modal-backdrop fade in"></div>`
 ```
+The demo has an example for SystemJS. Namely the difference is in how the ``BaseModal`` is imported.
+```typescript
+import { BaseModalConfig, BaseModal } from 'angular-basic-modal';
+```
+
 
 ### License
 MIT
