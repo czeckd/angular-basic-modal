@@ -105,8 +105,10 @@ export class BootstrapModalComponent extends BaseModal {
 
 The template:
 ```html
-<div class="modal" id="important-msg" tabindex="-1" role="dialog" style="display:block;" (click)="dismiss('Dismiss')">
-  <div class="modal-dialog" [ngClass]= "{'modal-sm':width<301, 'modal-lg':width>599}" (click)="$event.stopPropagation()">
+<div class="modal" id="important-msg" tabindex="-1" role="dialog" style="display:block;" 
+    (click)="dismiss('Dismiss')">
+  <div class="modal-dialog" [ngClass]= "{'modal-sm':width<301, 'modal-lg':width>599}" 
+    (click)="$event.stopPropagation()">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" (click)="cancel('Cancel')">
@@ -116,8 +118,10 @@ The template:
       </div>
       <div class="modal-body" [innerHTML]="message"></div>
       <div class="modal-footer">
-        <button *ngIf="confirmBtn" type="button" class="btn btn-default" (click)="confirm()">{{confirmBtn}}</button>
-        <button *ngIf="cancelBtn" type="button" class="btn btn-primary" (click)="cancel()">{{cancelBtn}}</button>
+        <button *ngIf="confirmBtn" type="button" class="btn btn-default"
+          (click)="confirm()">{{confirmBtn}}</button>
+        <button *ngIf="cancelBtn" type="button" class="btn btn-primary"
+          (click)="cancel()">{{cancelBtn}}</button>
       </div>
     </div>
   </div>
