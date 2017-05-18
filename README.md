@@ -65,11 +65,10 @@ either be the default ``BaseModal`` component or a component extending it. See
 the ``IconModal`` and ``BootstrapModal`` component in the demo for examples.
 
 The following parameters are settable on the ``BaseModalConfig``: 
-- **title** - HTML or text for the modal's title
-- **message** - HTML or text for the modal's body 
-- **type** - (default, info, warning, or critical)
+- **title** - HTML or text for the modal's title.
+- **message** - HTML or text for the modal's body.
 - **blocking** - whether or not the modal can be dismissed by clicking the 
-overlay
+overlay.
 - **confirmBtn** - label of the optional confirm button. The confirmButton is 
 associated with the confirm() function, which may optionally take a string to 
 return via the modal's promise if clicked *( for example click('foo') would 
@@ -131,7 +130,8 @@ The template:
 </div>
 <div class="modal-backdrop fade in"></div>`
 ```
-The demo has an example for SystemJS. Namely the difference is in how the ``BaseModal`` is imported.
+The demo has an example for SystemJS. Namely the difference is in how ``BaseModalConfig`` and ``BaseModal``
+are imported.
 ```typescript
 import { BaseModalConfig, BaseModal } from 'angular-basic-modal';
 ```
