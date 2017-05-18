@@ -5,7 +5,8 @@ import { BaseModalConfig, BaseModal } from 'angular-basic-modal';
 @Component({
 	selector: 'modal',
 	template: `
-<div class="modal" id="important-msg" tabindex="-1" role="dialog" style="display:block;" (click)="dismiss('Dismiss')">
+
+<div class="modal" role="dialog" tabindex="-1" role="dialog" style="display:inherit;" (click)="dismiss('Dismiss')">
 	<div class="modal-dialog" [ngClass]= "{'modal-sm':width<301, 'modal-lg':width>599}" (click)="$event.stopPropagation()">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -22,8 +23,8 @@ import { BaseModalConfig, BaseModal } from 'angular-basic-modal';
 		</div>
 	</div>
 </div>
-<div class="modal-backdrop fade in"></div>`
-
+<div class="modal-backdrop fade in"></div>
+`
 })
 
 export class BootstrapModal extends BaseModal {
