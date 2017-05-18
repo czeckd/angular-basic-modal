@@ -4,7 +4,7 @@ import { BaseModalConfig } from './base-modal-config';
 
 @Component({
 	selector: 'modal',
-	styleUrls: ['css/modal.css'],
+	styleUrls: ['./base-modal.component.css'],
 	template: `
 <div class="modal-background" (click)="dismiss()">
 	<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height':  height + 'px'}">
