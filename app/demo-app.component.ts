@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BaseModalConfig, BaseModal, SimpleModal } from './modal/index';
+import { BaseModalConfig, BaseModal, BasicModalService } from 'angular-basic-modal';
 import { BootstrapModal, IconModal, IconModalType, IconModalConfig } from './custom/index';
 
 @Component({
@@ -30,7 +30,7 @@ export class DemoAppComponent implements OnInit {
 	private bmc:BaseModalConfig = new BaseModalConfig();
 	private imc:IconModalConfig = new IconModalConfig();
 
-	constructor(private modal:SimpleModal) {
+	constructor(private modal:BasicModalService) {
 	}
 
 	ngOnInit() {

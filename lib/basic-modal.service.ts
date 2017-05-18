@@ -4,7 +4,7 @@ import { BaseModal } from './base-modal.component';
 import { BaseModalConfig } from './base-modal-config';
 
 @Injectable()
-export class SimpleModal {
+export class BasicModalService {
 
 	constructor(private app:ApplicationRef, private cfr:ComponentFactoryResolver, private injector:Injector) {
 	}

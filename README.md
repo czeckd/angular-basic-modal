@@ -1,49 +1,74 @@
-# angular-simple-modal
+[![npm version](https://badge.fury.io/js/angular-basic-modal.svg)](https://badge.fury.io/js/angular-basic-modal)
 
-Simple-modal is a lightweight, reusable Angular 2.3.0 or greater compatible 
-solution that will create a modal dialog, add it to the DOM, and then remove 
-the modal from the DOM when it is dismissed. The modal returns a promise 
-indicating which button was pressed to dismiss the modal that then optionally 
-can be used for further processing.
+Angular Basic Modal
+=========
 
-The ``BaseModal`` has a default, generic modal style provided that can be 
-extended to display modals with other style sheets, such as Bootstrap.
+The **angular-basic-modal** is a lightweight, extendable Angular 2+ (2.3.0 and beyond) modal solution that
+will programatically create a modal, add it to the DOM, and then delete it from the DOM when the modal is 
+dismissed. The modal returns a promise that indicates  how the modal dismissed that can then be used for 
+further processing.
 
-### Demo
+A default  modal style is provided that can be extended to create modals with any style sheet, including
+Bootstrap. A [working demo](http://czeckd.github.io/angular-simple-modal/demo/) shows the basic modal and two 
+extended version (icon and Bootstrap 3) in action with user adjustable customizations.
 
-A [working demo](http://czeckd.github.io/angular-simple-modal/demo/) shows
-the modal in action. It allows strings, buttons, and icons to be customized.
+![Angular Basic Modal](http://czeckd.github.io/angular-basic-modal/images/modal.png)
+
+## How to use?
+```
+$ npm i angular-basic-modal --save
+```
+
+## Integration
+The **angular-basic-modal** should work as-is with webpack/angular-cli. Just add the ``AngularBasicModalModule``:
+```typescript
+import { AngularBasicModalModule } from 'angular-basic-modal';
+
+@NgModule({
+  imports: [ AngularBasicModalModule ],
+  ...
+})
+export class AppModule { }
+```
 
 ### Usage
 
-Import the ``ModalModule.forRoot()`` in your app's bade module. For example:
-```ts
-import { ModalModule } from './modal/modal.module';
+Basic usage is:
+```typescript
+  bmc = new BaseModalConfig();
 
-@NgModule({
-    imports: [ ModalModule.forRoot() ],
-    ...
-})
-export class AppModule {}
+  constructor(private modal:BasicModalService) { }
+
+  ...
+
+  ngOnInit() {
+    this.bmc.title = 'Hi There!';
+    this.bmc.message = "This is Eddie, your shipboard computer, and I'm " +
+      "feeling just great, guys, and I know I'm just going to get a " +
+      "bundle of kicks out of any program you care to run through me.";
+    this.bmc.width = 400;
+    this.bmc.height = 160;
+    this.bmc.cancelBtn = 'Great!';
+
+    setTimeout( () => {
+      this.modal.show(this.bmc, BaseModal).then( res => {
+        console.log(res);
+      });
+    }, 1500);
+  }
 ```
-
-See ``app/app.module.ts`` for example.
-
-Three parts comprise the simple-modal: a ``BaseModalConfig``, a modal 
-component, and the ``SimpleModal`` provider.
 
 The ``BaseModalConfig`` contains the settings for the modal and is injected 
 when the modal is created by calling ``show(config:BaseModalConfig, 
 modal:Type<BaseModal>)`` on the ``SimpleModal`` provider. The modal loaded can 
 either be the default ``BaseModal`` component or a component extending it. See 
-the ``BootstrapModal`` component for an example.
+the ``IconModal`` and ``BootstrapModal`` component in the demo for examples.
 
 The following parameters are settable on the ``BaseModalConfig``: 
-- **title** - HTML or text for the modal's title
-- **message** - HTML or text for the modal's body 
-- **type** - (default, info, warning, or critical)
+- **title** - HTML or text for the modal's title.
+- **message** - HTML or text for the modal's body.
 - **blocking** - whether or not the modal can be dismissed by clicking the 
-overlay
+overlay.
 - **confirmBtn** - label of the optional confirm button. The confirmButton is 
 associated with the confirm() function, which may optionally take a string to 
 return via the modal's promise if clicked *( for example click('foo') would 
@@ -58,22 +83,62 @@ parameter, then the cancelBtn label will be returned.
 attribute on `<div class="modal-dialog">` element uses the width to adjust the
 size according.
 
-### Getting started
+## Extending
 
-1. Clone this repo
-1. Install the dependencies:
-	```
-    npm install
-	```
-1. Run the TypeScript transpiler and start the server:
-	```
-	npm start
-	```
+As noted above, the BaseModal can be extended. Here is a Webpack example for a 
+Bootstrap styled modal. 
+
+The component:
+```typescript
+import { Component } from '@angular/core';
+import { BaseModal } from 'angular-basic-modal/base-modal.component';
+import { BaseModalConfig } form 'angular-basic-modal/base-modal-config';
+
+@Component({
+  selector: 'bs-modal',
+  templateUrl: './bootstrap-modal.component.html'
+})
+export class BootstrapModalComponent extends BaseModal {
+  constructor(bmc:BaseModalConfig) {
+    super(bmc);
+  }
+}
+```
+
+The template:
+```html
+<div class="modal" tabindex="-1" role="dialog" style="display:inherit;" (click)="dismiss('Dismiss')">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="cancel('Cancel')">
+          <span>&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="display:inline-block;" id="modal-title" [innerHTML]="title"></h4>
+      </div>
+      <div class="modal-body" [innerHTML]="message"></div>
+      <div class="modal-footer">
+        <button *ngIf="confirmBtn" type="button" class="btn btn-default" (click)="confirm()">
+          {{confirmBtn}}
+        </button>
+        <button *ngIf="cancelBtn" type="button" class="btn btn-primary" (click)="cancel()">
+          {{cancelBtn}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade in"></div>`
+```
+The demo has an example for SystemJS. Namely the difference is in how ``BaseModalConfig`` and ``BaseModal``
+are imported.
+```typescript
+import { BaseModalConfig, BaseModal } from 'angular-basic-modal';
+```
+
 
 ### License
-
 MIT
-
 
 ### Author
 - David Czeck [@czeckd](https://github.com/czeckd)

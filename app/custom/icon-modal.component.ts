@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import { BaseModal } from '../modal/index';
+import { BaseModal } from 'angular-basic-modal';
 import { IconModalConfig } from './icon-modal-config';
 
 @Component({
 	selector: 'modal',
-	styleUrls: ['css/modal.css'],
+	styleUrls: ['app/custom/icon-modal.component.css'],
 	template: `
 <div class="modal-background" (click)="dismiss()">
 	<div class="modal" (click)="$event.stopPropagation()" [ngStyle]="{'width': width + 'px', 'height':  height + 'px'}">
@@ -61,4 +61,3 @@ export enum IconModalType {
 	Warning,
 	Critical
 }
-
