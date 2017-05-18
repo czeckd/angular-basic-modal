@@ -1,23 +1,22 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ApplicationRef, ComponentFactoryResolver, Injector, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { BaseModal, BasicModalService } from './index';
 
-export function BASIC_MODAL_REGISTRY_PROVIDER_FACTORY(parentRegistry:BasicModalServiceService, http:Http) {
-	return parentRegistry || new BasicModalServiceService(http);
+export function BASIC_MODAL_REGISTRY_PROVIDER_FACTORY(
+		parentRegistry:BasicModalService, ar:ApplicationRef, cfr:ComponentFactoryResolver, i:Injector ) {
+	return parentRegistry || new BasicModalService(ar, cfr, i);
 }
 
 export const BASIC_MODAL_REGISTRY_PROVIDER = {
-	provide: BasicModalServiceService,
-	deps: [ [new Optional(), new SkipSelf(), BasicModalServiceService], Http],
+	provide: BasicModalService,
+	deps: [ [new Optional(), new SkipSelf(), BasicModalService], ApplicationRef, ComponentFactoryResolver, Injector ],
 	useFactory: BASIC_MODAL_REGISTRY_PROVIDER_FACTORY
 }
 
 @NgModule({
 	imports: [
-		CommonModule,
-		FormsModule
+		CommonModule
 	],
 	declarations: [
 		BaseModal
@@ -33,4 +32,4 @@ export const BASIC_MODAL_REGISTRY_PROVIDER = {
 	]
 })
 
-export class BasicModalModule { }
+export class AngularBasicModalModule { }
