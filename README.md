@@ -25,8 +25,8 @@ The **angular-basic-modal** should work as-is with webpack/angular-cli. Just add
 import { AngularBasicModalModule } from 'angular-basic-modal';
 
 @NgModule({
-    imports: [ AngularBasicModalModule ],
-    ...
+  imports: [ AngularBasicModalModule ],
+  ...
 })
 export class AppModule { }
 ```
@@ -35,27 +35,27 @@ export class AppModule { }
 
 Basic usage is:
 ```typescript
-    bmc = new BaseModalConfig();
+  bmc = new BaseModalConfig();
 
-    constructor(private modal:BasicModalService) { }
+  constructor(private modal:BasicModalService) { }
 
-    ...
+  ...
 
-    ngOnInit() {
-        this.bmc.title = 'Hi There!';
-        this.bmc.message = "This is Eddie, your shipboard computer, and I'm " +
-            "feeling just great, guys, and I know I'm just going to get a " +
-            "bundle of kicks out of any program you care to run through me.";
-        this.bmc.width = 400;
-        this.bmc.height = 160;
-        this.bmc.cancelBtn = 'Great!';
+  ngOnInit() {
+    this.bmc.title = 'Hi There!';
+    this.bmc.message = "This is Eddie, your shipboard computer, and I'm " +
+      "feeling just great, guys, and I know I'm just going to get a " +
+      "bundle of kicks out of any program you care to run through me.";
+    this.bmc.width = 400;
+    this.bmc.height = 160;
+    this.bmc.cancelBtn = 'Great!';
 
-        setTimeout( () => {
-            this.modal.show(this.bmc, BaseModal).then( res => {
-                console.log(res);
-            });
-        }, 1500);
-    }
+    setTimeout( () => {
+      this.modal.show(this.bmc, BaseModal).then( res => {
+        console.log(res);
+      });
+    }, 1500);
+  }
 ```
 
 The ``BaseModalConfig`` contains the settings for the modal and is injected 
@@ -93,34 +93,34 @@ import { Component } from '@angular/core';
 import { BaseModalConfig, BaseModal } from 'angular-basic-modal';
 
 @Component({
-    selector: 'bs-modal',
-    templateUrl: './bootstrap-modal.component.html'
+  selector: 'bs-modal',
+  templateUrl: './bootstrap-modal.component.html'
 })
 export class BootstrapModalComponent extends BaseModal {
-    constructor(bmc:BaseModalConfig) {
-        super(bmc);
-    }
+  constructor(bmc:BaseModalConfig) {
+    super(bmc);
+  }
 }
 ```
 
 The template:
 ```html
 <div class="modal" id="important-msg" tabindex="-1" role="dialog" style="display:block;" (click)="dismiss('Dismiss')">
-    <div class="modal-dialog" [ngClass]= "{'modal-sm':width<301, 'modal-lg':width>599}" (click)="$event.stopPropagation()">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" (click)="cancel('Cancel')">
-                    <span>&times;</span><span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" style="display:inline-block;" id="modal-title" [innerHTML]="title"></h4>
-            </div>
-            <div class="modal-body" [innerHTML]="message"></div>
-            <div class="modal-footer">
-                <button *ngIf="confirmBtn" type="button" class="btn btn-default" (click)="confirm()">{{confirmBtn}}</button>
-                <button *ngIf="cancelBtn" type="button" class="btn btn-primary" (click)="cancel()">{{cancelBtn}}</button>
-            </div>
-        </div>
+  <div class="modal-dialog" [ngClass]= "{'modal-sm':width<301, 'modal-lg':width>599}" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="cancel('Cancel')">
+          <span>&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" style="display:inline-block;" id="modal-title" [innerHTML]="title"></h4>
+      </div>
+      <div class="modal-body" [innerHTML]="message"></div>
+      <div class="modal-footer">
+        <button *ngIf="confirmBtn" type="button" class="btn btn-default" (click)="confirm()">{{confirmBtn}}</button>
+        <button *ngIf="cancelBtn" type="button" class="btn btn-primary" (click)="cancel()">{{cancelBtn}}</button>
+      </div>
     </div>
+  </div>
 </div>
 <div class="modal-backdrop fade in"></div>`
 ```
