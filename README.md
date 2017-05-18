@@ -9,7 +9,7 @@ dismissed. The modal returns a promise that indicates  how the modal dismissed t
 further processing.
 
 A default  modal style is provided that can be extended to create modals with any style sheet, including
-Bootstrap. A [working demo](http://czeckd.github.io/angular-simple-modal/demo/) shows the basic modal and two 
+Bootstrap. A [working demo](http://czeckd.github.io/angular-basic-modal/demo/) shows the basic modal and two 
 extended version (icon and Bootstrap 3) in action with user adjustable customizations.
 
 ![Angular Basic Modal](http://czeckd.github.io/angular-basic-modal/images/modal.png)
@@ -60,7 +60,7 @@ Basic usage is:
 
 The ``BaseModalConfig`` contains the settings for the modal and is injected 
 when the modal is created by calling ``show(config:BaseModalConfig, 
-modal:Type<BaseModal>)`` on the ``SimpleModal`` provider. The modal loaded can 
+modal:Type<BaseModal>)`` on the ``BasicModalService``. The modal loaded can 
 either be the default ``BaseModal`` component or a component extending it. See 
 the ``IconModal`` and ``BootstrapModal`` component in the demo for examples.
 
